@@ -1,56 +1,34 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Events</h1>
-
-<% @events.each do |event| %>
-  <table class="table table-bordered" style="margin-bottom:0px">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Event type</th>
-        <th>Name</th>
-        <th colspan="3">Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-          <td><%= event.date.strftime("%m/%d/%Y") %></td>
-          <td><%= event.event_type.name %></td>
-          <td><%= link_to event.name, event %></td>
-          <td><%= link_to 'Show', event %></td>
-          <td><%= link_to 'Edit', edit_event_path(event) %></td>
-          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-    </tbody>
-  </table>
-
-            <table class="table table-bordered">
-
-              <tr>
-                <th>Task Type</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Community</th>
-                <th>Staff</th>
-                <th>Interns</th>
-              </tr>
-
-              <% event.sub_events.each do |task| %>
-                <tr>
-                  <td><%= link_to task.name, event_sub_event_path(event, task) %></td>
-                  <td><%= task.start_time.strftime("%l:%M%p") %></td>
-                  <td><%= task.end_time.strftime("%l:%M%p") %></td>
-                  <td><%= task.community_num %></td>
-                  <td><%= task.staff_num %></td>
-                  <td><%= task.intern_num %></td>
-                </tr>
-              <% end %>
-              <tr>
-                      <td colspan="6"><%= link_to 'New Task', new_event_sub_event_path(event) %></td>
-              </tr>
-            </table>
+<h1>Events</h1>
+<% if has_role?(:admin)  %>
+  <%= link_to "List View","#", class: "btn btn-primary list_view_btn" %>
 <% end %>
+<table class="table table-bordered event_listing" style="margin-bottom:0px">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Event type</th>
+      <th>Name</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.date.strftime("%m/%d/%Y") %></td>
+        <td><%= event.event_type.name %></td>
+        <td><%= link_to event.name, event %></td>
+        <td><%= link_to 'Show', event %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+  <%= render 'calendar' %>
+
 <br>
 
-<%= link_to 'New Event', new_event_path %>
+<%= generate_admin_link({title_text: 'New Event', path: new_event_path }) %>

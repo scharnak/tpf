@@ -1,0 +1,25 @@
+  <table class="table table-bordered">
+
+    <tr>
+      <th>Task Type</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Community</th>
+      <th>Staff</th>
+      <th>Interns</th>
+    </tr>
+
+    <% @event.sub_events.each do |task| %>
+      <tr>
+        <td><%= link_to task.name, event_sub_event_path(@event, task) %></td>
+        <td><%= task.start_time.strftime("%l:%M%p") %></td>
+        <td><%= task.end_time.strftime("%l:%M%p") %></td>
+        <td><%= volunteer_count(:community,task)%></td>
+        <td><%= volunteer_count(:staff,task) %></td>
+        <td><%= volunteer_count(:intern,task) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="6"><%= link_to 'New Task', new_event_sub_event_path(@event) %></td>
+    </tr>
+  </table>

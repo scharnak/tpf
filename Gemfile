@@ -1,11 +1,14 @@
 source 'https://rubygems.org'
 
 gem 'cancancan', '~> 1.10'
+gem "simple_calendar", "~> 1.1.0"
 
 gem 'bootswatch-rails'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem "awesome_print", :group => [:development, :test]
+gem "better_errors", :group => [:development, :test]
 
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

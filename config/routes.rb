@@ -2,16 +2,15 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :sub_events
+    get '/sub_events/:id/sign_up', to: 'sub_events#sign_up', as: :sign_up
   end
-
-      get '/sub_events/:id/sign_up', to: 'sub_events#sign_up', as: :sign_up
 
   #need to route user ID and sub event ID to sign up in the sub_events controller
 
   resources :event_types
 
   root 'users#dashboard'
-  
+
   #devise_for :users
 
   devise_for :users, :controllers => { registrations: 'registrations' }

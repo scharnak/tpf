@@ -9,7 +9,7 @@ class Ability
     end
 
     if user.role == 'admin'
-        can [:read, :create, :update, :destroy, :manage], :all
+        can :manage, :all
     end
 
     if user.role == 'staff'
@@ -17,8 +17,10 @@ class Ability
         cannot :index, User
         cannot [:read,:create,:update,:destroy,:manage], EventType
         cannot [:read,:create,:update,:destroy,:manage], VolunteerNote
-        cannot [:read,:create,:update,:destroy,:manage], Event
-        cannot [:read,:create,:update,:destroy,:manage], SubEvent
+        cannot [:create,:update,:destroy,:manage], Event
+        can [:read], Event
+        cannot [:create,:update,:destroy,:manage], SubEvent
+        can [:read, :sign_up], SubEvent
     end
 
     if user.role == 'community'

@@ -10,10 +10,7 @@
   <%= @event.name %>
 </p>
 
-<% @event.sub_events.each do |task| %>
-	<%= task.name %>
-<% end %>
-
+<%= render "sub_event" %>
 <%= link_to 'New Event Task', new_event_sub_event_path(@event) %>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

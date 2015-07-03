@@ -1,5 +1,5 @@
 class SubEventsController < ApplicationController
-  before_action :set_sub_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up]
 
   load_and_authorize_resource
   # GET /sub_events
@@ -9,12 +9,19 @@ class SubEventsController < ApplicationController
   end
 
   def sign_up
-    logger.debug('in sign up')
-    #query for required user types
+    if @sub_event.volunteer_count(current_user.role) < @sub_event.try(current_user.role + '_num')
 
-    #query for users who are already signed up
-    
-    #compare the user roles with the required roles
+      if !@sub_event.users.include?(current_user)
+        @sub_event.users << current_user
+        @sub_event.save
+        response = {notice: "You've been added to this task!"}
+      else
+        response =  {alert: "You've already been added to this task!"}
+      end
+      redirect_to events_path, response
+    else
+      redirect_to events_path, alert: "This task is already full!"
+    end
   end
 
   def show
