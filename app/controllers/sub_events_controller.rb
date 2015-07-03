@@ -9,6 +9,7 @@ class SubEventsController < ApplicationController
   end
 
   def sign_up
+    logger.debug('in sign up')
     #query for required user types
 
     #query for users who are already signed up
