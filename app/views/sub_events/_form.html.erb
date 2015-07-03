@@ -1,0 +1,43 @@
+<%= form_for [@event, @sub_event] do |f| %>
+  <% if @sub_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sub_event.errors.count, "error") %> prohibited this sub_event from being saved:</h2>
+
+      <ul>
+      <% @sub_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :event_id %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.time_select :start_time,{ampm: true} %>
+  </div>
+    <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.time_select :end_time,{ampm: true} %>
+  </div>
+  <div class="field">
+    <%= f.label :intern_num %><br>
+    <%= f.number_field :intern_num %>
+  </div>
+  <div class="field">
+    <%= f.label :staff_num %><br>
+    <%= f.number_field :staff_num %>
+  </div>
+  <div class="field">
+    <%= f.label :community_num %><br>
+    <%= f.number_field :community_num %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Users</h1>
+
+<%= link_to 'Create New User', new_user_path %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Sign In Count</th>
+      <th>Last Sign In</th>
+      <th colspan=4>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.fname %></td>
+        <td><%= user.lname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.sign_in_count %></td>
+
+        <% if user.current_sign_in_at != nil %>
+          <td><%= user.current_sign_in_at.strftime("%m/%d/%Y @ %H:%M%p") %> hr/min wrong</td>
+        <% else %>
+          <td>No Data</td>
+        <% end %>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Add note', new_user_volunteer_note_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+<%= form_for [@user, @volunteer_note] do |f| %>
+  <% if @volunteer_note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@volunteer_note.errors.count, "error") %> prohibited this volunteer_note from being saved:</h2>
+
+      <ul>
+      <% @volunteer_note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :user_id %>
+  <%= f.text_field :user_id %>
+
+    <%= f.label :created_by_user_id %>
+  <%= f.text_field :created_by_user_id %>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

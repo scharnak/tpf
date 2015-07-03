@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sub Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Name</th>
+      <th>Intern num</th>
+      <th>Staff num</th>
+      <th>Community num</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sub_events.each do |sub_event| %>
+      <tr>
+        <td><%= sub_event.event_id %></td>
+        <td><%= sub_event.name %></td>
+        <td><%= sub_event.intern_num %></td>
+        <td><%= sub_event.staff_num %></td>
+        <td><%= sub_event.community_num %></td>
+        <td><%= link_to 'Show', sub_event %></td>
+        <td><%= link_to 'Edit', edit_sub_event_path(sub_event) %></td>
+        <td><%= link_to 'Destroy', sub_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sub event', new_sub_event_path %>

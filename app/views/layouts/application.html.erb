@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Patachou Foundation</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="wrapper container">
+	<div class="col-lg-12">
+	<img src="http://nebula.wsimg.com/6514c6e861215921998ba1505321aa58?AccessKeyId=2518BDE4ED7D4F9A2999&disposition=0&alloworigin=1">
+
+		<%= render "shared/navigation" %>
+
+		<% if notice %>
+		  <p class="alert alert-success"><%= notice %></p>
+		<% end %>
+		<% if alert %>
+		  <p class="alert alert-danger"><%= alert %></p>
+		<% end %>
+
+		<%= yield %>
+	</div>
+
+</div>
+
+</body>
+</html>

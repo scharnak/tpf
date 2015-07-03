@@ -1,0 +1,31 @@
+<p>
+  <strong>User:</strong>
+  <%= @user.fname %>
+</p>
+
+<% if can? :read, @user.volunteer_notes %>
+
+<%= link_to "Add New Note", new_user_volunteer_note_path(@user) %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Added By</th>
+      <th>Note Details</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%# @user.volunteer_notes.each do |note| %>
+    <% @notes.each do |note| %>
+      <tr>
+        <td><%= note.created_at.strftime("%m/%d/%Y %I:%M%p") %></td>
+      	<td><%= note.fname + " " + note.lname %></td>
+        <td><%= note.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>

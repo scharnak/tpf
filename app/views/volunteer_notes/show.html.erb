@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @volunteer_note.user_id %>
+</p>
+
+<p>
+  <strong>Created by user:</strong>
+  <%= @volunteer_note.created_by_user_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @volunteer_note.description %>
+</p>
+
+<%= link_to 'Edit', edit_volunteer_note_path(@volunteer_note) %> |
+<%= link_to 'Back', volunteer_notes_path %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Volunteer Notes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Created by user</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @volunteer_notes.each do |volunteer_note| %>
+      <tr>
+        <td><%= volunteer_note.user_id %></td>
+        <td><%= volunteer_note.created_by_user_id %></td>
+        <td><%= volunteer_note.description %></td>
+        <td><%#= link_to 'Show', volunteer_note %></td>
+        <td><%#= link_to 'Edit', edit_volunteer_note_path(volunteer_note) %></td>
+        <td><%#= link_to 'Destroy', volunteer_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Volunteer note', new_volunteer_note_path %>

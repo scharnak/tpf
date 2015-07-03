@@ -1,0 +1,2 @@
+module VolunteerNotesHelper
+end

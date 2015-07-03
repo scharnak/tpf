@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_id: 1
+  name: MyString
+  intern_num: 1
+  staff_num: 1
+  community_num: 1
+
+two:
+  event_id: 1
+  name: MyString
+  intern_num: 1
+  staff_num: 1
+  community_num: 1
