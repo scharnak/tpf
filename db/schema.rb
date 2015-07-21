@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702153728) do
+ActiveRecord::Schema.define(version: 20150711223815) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20150702153728) do
     t.datetime "date"
   end
 
+  create_table "restaurants", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "address1",   limit: 255
+    t.string   "address2",   limit: 255
+    t.string   "city",       limit: 255
+    t.string   "state",      limit: 255, default: "IN"
+    t.string   "zipcode",    limit: 255
+    t.string   "phone",      limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
   create_table "sub_events", force: :cascade do |t|
     t.integer  "event_id",      limit: 4
     t.string   "name",          limit: 255
@@ -37,6 +49,13 @@ ActiveRecord::Schema.define(version: 20150702153728) do
     t.datetime "updated_at",                null: false
     t.datetime "start_time"
     t.datetime "end_time"
+  end
+
+  create_table "user_restaurants", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.integer  "restaurant_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "user_sub_events", force: :cascade do |t|
@@ -69,10 +88,12 @@ ActiveRecord::Schema.define(version: 20150702153728) do
 
   create_table "volunteer_notes", force: :cascade do |t|
     t.integer  "user_id",            limit: 4
-    t.integer  "created_by_user_id", limit: 4
     t.string   "description",        limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "created_by_user_id", limit: 4
   end
+
+  add_index "volunteer_notes", ["created_by_user_id"], name: "index_volunteer_notes_on_created_by_user_id", using: :btree
 
 end

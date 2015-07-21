@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :restaurants
+
   resources :events do
     resources :sub_events
     get '/sub_events/:id/sign_up', to: 'sub_events#sign_up', as: :sign_up

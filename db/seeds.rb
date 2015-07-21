@@ -8,9 +8,14 @@
 
 EventType.delete_all
 Event.delete_all
+Restaurant.delete_all
 
 event_type_1 = EventType.create(name: 'Brookside Park')
 event_type_2  = EventType.create(name: 'Lunch')
 
 event_1 = Event.create(name: "Event 1", event_type_id: event_type_1.id, date: Date.today)
 event_2 = Event.create(name: "Event 2", event_type_id: event_type_2.id, date: Date.today)
+
+restaurant_array = ["Downtown Patachou", "Broad Ripple Napolese", "Broad Ripple Patachou", "Keystone Napolese", "Public Greenss"]
+
+restaurant_array.each {|r| Restaurant.create(name: r)}

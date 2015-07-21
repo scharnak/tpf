@@ -21,7 +21,7 @@
     <% @notes.each do |note| %>
       <tr>
         <td><%= note.created_at.strftime("%m/%d/%Y %I:%M%p") %></td>
-      	<td><%= note.fname + " " + note.lname %></td>
+      	<td><%= full_name(note.created_by_user) %></td>
         <td><%= note.description %></td>
       </tr>
     <% end %>
