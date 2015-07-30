@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_action :check, only:[:create, :update]
+  #before_action :check, only:[:create, :update]
 
   def new
     build_resource({})
@@ -12,8 +12,6 @@ class RegistrationsController < Devise::RegistrationsController
   def check
     raise("check it")
   end
-
-
 
 
 

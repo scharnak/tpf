@@ -39,7 +39,7 @@
 
   <div class="form-group">
     <% Restaurant.all.each do |r| %>
-      <%= check_box_tag 'user[restaurant_ids][]', r.id, resource.restaurants.include?(r) %>
+      <%= check_box_tag 'user[restaurant_ids][]', r.id, resource.restaurants.include?(r), :class => "box" %>
       <%= label_tag 'user[restaurant_ids][]', r.name %> <br>
     <% end %>
   </div>

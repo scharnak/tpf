@@ -2,7 +2,11 @@ class UsersController < ApplicationController
 
 	before_action :set_user, only: [:show, :edit, :update, :destroy]
 	before_action :authenticate_user!
-	load_and_authorize_resource
+	#load_and_authorize_resource
+
+  def delete_user_restaurant
+    UserRestaurant.find_by(:restaurant_id == params[:id], :user_id == current_user.id).destroy
+  end
 
 	def dashboard
 	end

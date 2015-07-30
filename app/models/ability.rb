@@ -10,6 +10,7 @@ class Ability
 
     if user.role == 'admin'
         can :manage, :all
+        can :delete_user_restaurant, User
     end
 
     if user.role == 'staff'

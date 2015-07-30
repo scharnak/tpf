@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get '/sub_events/:id/sign_up', to: 'sub_events#sign_up', as: :sign_up
   end
 
+  post '/users/delete_user_restaurant'
+
   #need to route user ID and sub event ID to sign up in the sub_events controller
 
   resources :event_types
