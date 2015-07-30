@@ -19,20 +19,14 @@
         <%= f.label :email %><br />
         <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
       </div>
-      <div class="form-group">
-        <%= label_tag "patachou_employee" %>
-        <%= check_box_tag 'patachou_employee','',false, {class: "form-control"} %>
-      </div>
-      <%= f.fields_for :user_restaurants do |ur| %>
+
         <div class="form-group">
-          <% Restaurant.all.each_with_index do |restaurant, index| %>
-            <%= check_box "user[user_restaurants_attributes][#{index}][restaurant_id]", restaurant.id,{}, 1,0 %>
-            <%= restaurant.name %>
+          <% Restaurant.all.each do |r| %>
+            <%= check_box_tag 'user[restaurant_ids][]', r.id, false %>\
+            <%= label_tag 'user[restaurant_ids][]', r.name %>
           <% end %>
-          <!-- <%= ur.label :id, "Restaurants" %><br /> -->
-          <!-- <%= ur.collection_select(:id, Restaurant.all, :id, :name,{}, {class: "form-control", id: "restaurant_select" , multiple: "multiple"}) %> -->
         </div>
-      <% end %>
+
   </div>
 </div>
 

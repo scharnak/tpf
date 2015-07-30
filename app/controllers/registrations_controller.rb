@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_action :check, only:[:create]
+  before_action :check, only:[:create, :update]
 
   def new
     build_resource({})
@@ -20,10 +20,10 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :user_restaurants_attributes => [:restaurant_id, :_destroy])
+    params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :restaurant_ids => [])
   end
 
   def account_update_params
-    params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :current_password, :role, user_restaurants_attributes: :restaurant_id)
+    params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :current_password, :role, :restaurant_ids => [])
   end
 end
