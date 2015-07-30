@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711223815) do
+ActiveRecord::Schema.define(version: 20150711213625) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -88,12 +88,10 @@ ActiveRecord::Schema.define(version: 20150711223815) do
 
   create_table "volunteer_notes", force: :cascade do |t|
     t.integer  "user_id",            limit: 4
+    t.integer  "created_by_user_id", limit: 4
     t.string   "description",        limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "created_by_user_id", limit: 4
   end
-
-  add_index "volunteer_notes", ["created_by_user_id"], name: "index_volunteer_notes_on_created_by_user_id", using: :btree
 
 end
