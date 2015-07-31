@@ -2,11 +2,7 @@ class UsersController < ApplicationController
 
 	before_action :set_user, only: [:show, :edit, :update, :destroy]
 	before_action :authenticate_user!
-	#load_and_authorize_resource
-
-  def delete_user_restaurant
-    UserRestaurant.find_by(:restaurant_id == params[:id], :user_id == current_user.id).destroy
-  end
+	load_and_authorize_resource
 
 	def dashboard
 	end
@@ -17,7 +13,17 @@ class UsersController < ApplicationController
 
 	def show
 		@sub_events = UserSubEvent.where(user_id: @user)
-    @notes = @user.volunteer_notes
+    	@notes = @user.volunteer_notes
+	end
+
+	def update
+		respond_to do |format|
+	      if @user.update(user_params)
+	        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+	      else
+	        format.html { render :edit }
+	      end
+	    end
 	end
 
 	def edit

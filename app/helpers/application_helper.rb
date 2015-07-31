@@ -9,4 +9,5 @@ def generate_admin_link(options)
  link_to(options[:title_text], options[:path]) if current_user.role == 'admin'
 end
 
+
 end

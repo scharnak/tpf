@@ -1,9 +1,8 @@
-<%= month_calendar table: {class: "table table-bordered calendar"}, tr: {class: "calendar-row"}, td: {class: "day"}, events: @events do |date, events| %>
-  <%= date.strftime("%d") %>
+<%= month_calendar table: {class: "table table-bordered table-striped calendar"}, events: @events do |date, events| %>
 
-  <% events.each do |e| %>
-
-    <div><%= link_to e.name, event_path(e) %></div><br>
-  <% end %>
+		<%= date.strftime("%d") %>
+		<% events.each do |e| %>
+			<%= link_to e.name, event_path(e) %>
+		<% end %>
 
 <% end %>

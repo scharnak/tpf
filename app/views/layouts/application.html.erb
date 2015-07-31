@@ -10,15 +10,16 @@
 
 <div class="wrapper container">
 	<div class="col-lg-12">
-	<img src="http://nebula.wsimg.com/6514c6e861215921998ba1505321aa58?AccessKeyId=2518BDE4ED7D4F9A2999&disposition=0&alloworigin=1">
+	<%= image_tag('logo.png') %>
 
 		<%= render "shared/navigation" %>
 
+
 		<% if notice %>
-		  <p class="alert alert-success"><%= notice %></p>
+		  <p class="alert alert-success"><%= notice %><button class="close" data-dismiss="alert">x</button></p>
 		<% end %>
 		<% if alert %>
-		  <p class="alert alert-danger"><%= alert %></p>
+		  <p class="alert alert-danger"><%= alert %><button class="close" data-dismiss="alert">x</button></p>
 		<% end %>
 
 		<%= yield %>

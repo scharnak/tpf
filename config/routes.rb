@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :preference_types
+
+  resources :preferences
+
   resources :restaurants
 
   resources :events do

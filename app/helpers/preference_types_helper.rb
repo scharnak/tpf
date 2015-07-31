@@ -1,0 +1,2 @@
+module PreferenceTypesHelper
+end

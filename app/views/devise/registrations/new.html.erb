@@ -3,6 +3,7 @@
   <%= devise_error_messages! %>
 <div class="panel panel-default">
   <!-- Default panel contents -->
+
   <div class="panel-heading">Personal Information</div>
     <div class="panel-body">
         <div class="form-group">
@@ -20,15 +21,36 @@
         <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
       </div>
 
-        <div class="form-group">
-          <% Restaurant.all.each do |r| %>
-            <%= check_box_tag 'user[restaurant_ids][]', r.id, false %>\
-            <%= label_tag 'user[restaurant_ids][]', r.name %>
-          <% end %>
-        </div>
-
   </div>
 </div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Employee Information</div>
+  <div class="panel-body">
+      <div class="form-group">
+        <% Restaurant.all.each do |r| %>
+          <%= check_box_tag 'user[restaurant_ids][]',r.id, false %>
+          <%= label_tag 'user[restaurant_ids][]', r.name %><BR>
+        <% end %>
+      </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Preferences</div>
+  <div class="panel-body">
+        <% PreferenceType.all.each do |r| %>
+          <BR><%= r.name %><BR>
+          <% r.preferences.each do |p| %>
+            <%= check_box_tag 'user[preference_ids][]',p.id, false %>
+            <%= label_tag 'user[preference_ids][]', p.name %><BR>
+          <% end %>
+        <% end %>
+  </div>
+</div>
+
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
