@@ -1,75 +1,82 @@
 <h2>Sign up</h2>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-<div class="panel panel-default">
-  <!-- Default panel contents -->
 
-  <div class="panel-heading">Personal Information</div>
-    <div class="panel-body">
-        <div class="form-group">
-        <%= f.label :fname, "First Name" %><br />
-        <%= f.text_field :fname, :autofocus => true, :class => "form-control" %>
-      </div>
+<div class="row">
+  <div class="col-lg-6">  
+    <div class="panel panel-default">
+      <div class="panel-heading">Personal Information</div>
+        <div class="panel-body">
+            <div class="form-group">
+            <%= f.label :fname, "First Name" %><br />
+            <%= f.text_field :fname, :autofocus => true, :class => "form-control" %>
+          </div>
 
-      <div class="form-group">
-        <%= f.label :lname, "Last Name" %><br />
-        <%= f.text_field :lname, :autofocus => true, :class => "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
-      </div>
-
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Employee Information</div>
-  <div class="panel-body">
-      <div class="form-group">
-        <% Restaurant.all.each do |r| %>
-          <%= check_box_tag 'user[restaurant_ids][]',r.id, false %>
-          <%= label_tag 'user[restaurant_ids][]', r.name %><BR>
-        <% end %>
-      </div>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Preferences</div>
-  <div class="panel-body">
-        <% PreferenceType.all.each do |r| %>
-          <BR><%= r.name %><BR>
-          <% r.preferences.each do |p| %>
-            <%= check_box_tag 'user[preference_ids][]',p.id, false %>
-            <%= label_tag 'user[preference_ids][]', p.name %><BR>
-          <% end %>
-        <% end %>
-  </div>
-</div>
-
-
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Password Information</div>
-    <div class="panel-body">
           <div class="form-group">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, :class => "form-control" %>
-      </div>
+            <%= f.label :lname, "Last Name" %><br />
+            <%= f.text_field :lname, :autofocus => true, :class => "form-control" %>
+          </div>
 
-      <div class="form-group">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, :class => "form-control" %>
-      </div>
+          <div class="form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
+          </div>
 
-      <div><%= f.submit "Sign up", :class => "btn btn-primary" %></div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Employee Information</div>
+      <div class="panel-body">
+          <div class="form-group">
+            <% Restaurant.all.each do |r| %>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <%= check_box_tag 'user[restaurant_ids][]',r.id, false %>
+                </span>
+                <%= label_tag 'user[restaurant_ids][]', r.name, class: 'form-control' %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+        <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Password Information</div>
+        <div class="panel-body">
+              <div class="form-group">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, :class => "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, :class => "form-control" %>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Preferences</div>
+      <div class="panel-body">
+            <% PreferenceType.all.each do |r| %>
+              <h5><%= r.name %></h5>
+              <% r.preferences.each do |p| %>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <%= check_box_tag 'user[preference_ids][]',p.id, false %>
+                  </span>
+                  <%= label_tag 'user[preference_ids][]', p.name , class: 'form-control' %>
+                </div>
+              <% end %>
+            <% end %>
+      </div>
+    </div>
     </div>
   </div>
+  <div><%= f.submit "Sign up", :class => "btn btn-primary" %></div>
 </div>
-
-
 <% end %>

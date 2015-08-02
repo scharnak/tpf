@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Users</h1>
 
-<%= link_to 'Create New User', new_user_path %>
+<%= button_to 'Create New User', new_user_path, class: 'btn btn-primary btn-xs' %>
 
 <table class="table table-bordered">
   <thead>
@@ -12,9 +10,10 @@
       <th>Last Name</th>
       <th>Email</th>
       <th>Role</th>
-      <th>Sign In Count</th>
+      <th>Created</th>
+      <th>Count</th>
       <th>Last Sign In</th>
-      <th colspan=4>Actions</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -26,18 +25,40 @@
         <td><%= user.lname %></td>
         <td><%= user.email %></td>
         <td><%= user.role %></td>
+        <td><%= user.created_at.strftime("%m/%d/%Y") %></td>
         <td><%= user.sign_in_count %></td>
 
         <% if user.current_sign_in_at != nil %>
-          <td><%= user.current_sign_in_at.strftime("%m/%d/%Y @ %H:%M%p") %> hr/min wrong</td>
+          <td><%= user.current_sign_in_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
         <% else %>
           <td>No Data</td>
         <% end %>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Add note', new_user_volunteer_note_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <div class="btn-group" role="group" aria-label="...">
+            <%= button_to user, class: 'btn btn-xs btn-primary', method: 'get' do %>
+              Show Profile
+            <% end %>       
+
+            <%= button_to edit_user_path(user), class: 'btn btn-xs btn-primary', method: 'get' do %>
+              Edit User
+            <% end %> 
+        
+            <%= button_to new_user_volunteer_note_path(user),class: 'btn btn-xs btn-primary', method: 'get' do %>
+              Add Note 
+              <span class="badge"><%= user.volunteer_notes.count %></span>
+            <% end %>
+          
+            <%= button_to user, class: 'btn btn-xs btn-primary', method: :delete, data: { confirm: 'Are you sure?' } do %>
+              Delete User
+            <% end %> 
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+
+<%= will_paginate @users %>
+
+<!-- Add in a button dropdown for how many to display per page -->

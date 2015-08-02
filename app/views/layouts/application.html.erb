@@ -14,18 +14,17 @@
 
 		<%= render "shared/navigation" %>
 
+		<div id="content">
+			<% if notice %>
+			  <div class="alert alert-success fade in"><%= notice %><button class="close" data-dismiss="alert">&times;</button></div>
+			<% end %>
+			<% if alert %>
+			  <div class="alert alert-danger fade in"><%= alert %><button class="close" data-dismiss="alert">&times;</button></div>
+			<% end %>
 
-		<% if notice %>
-		  <p class="alert alert-success"><%= notice %><button class="close" data-dismiss="alert">x</button></p>
-		<% end %>
-		<% if alert %>
-		  <p class="alert alert-danger"><%= alert %><button class="close" data-dismiss="alert">x</button></p>
-		<% end %>
-
-		<%= yield %>
+			<%= yield %>
+		</div>
 	</div>
-
 </div>
-
 </body>
 </html>

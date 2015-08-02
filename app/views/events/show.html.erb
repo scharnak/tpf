@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Event type:</strong>
@@ -11,7 +10,13 @@
 </p>
 
 <%= render "sub_event" %>
-<%= link_to 'New Event Task', new_event_sub_event_path(@event) %>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<% if can? :create, @sub_event %>
+	<%= button_to "Add Task", new_event_sub_event_path(@event), class: "btn btn-xs btn-primary", method: "get" %>
+<% end %>
+
+<% if can? :edit, @event %>
+	<%= button_to "Edit Event", edit_event_path(@event), class: "btn btn-xs btn-primary", method: "get" %>
+<% end %>
+
+<%= button_to 'Back', events_path, class: "btn btn-xs btn-primary", method:"get" %>

@@ -20,7 +20,7 @@
     <%# @user.volunteer_notes.each do |note| %>
     <% @notes.each do |note| %>
       <tr>
-        <td><%= note.created_at.strftime("%m/%d/%Y %I:%M%p") %></td>
+        <td><%= note.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
       	<td><%= full_name(note.created_by_user) %></td>
         <td><%= note.description %></td>
       </tr>
@@ -29,3 +29,5 @@
 </table>
 
 <% end %>
+
+<%= button_to 'Back', users_path, class: 'btn btn-primary', method: 'get' %>

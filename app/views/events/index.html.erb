@@ -1,6 +1,6 @@
 <h1>Events</h1>
 
-<%= link_to "List View","#", class: "btn btn-primary list_view_btn" %>
+<%= link_to "List View","#", class: "list_view_btn" %>
 
 <table class="table table-bordered event_listing" style="margin-bottom:0px">
   <thead>
@@ -30,16 +30,20 @@
               <th>Community</th>
               <th>Staff</th>
               <th>Interns</th>
-              <th>Actions</th>
+              <% if !has_role?(:admin) %>
+                <th>Actions</th>
+              <% end %>
             </tr>
             <% event.sub_events.each do |task| %>
             <tr>
               <td><%= link_to task.name, event_sub_event_path(event, task) %></td>
               <td><%= task.start_time.strftime("%I:%M%p") %> to <%= task.end_time.strftime("%I:%M%p") %></td>
-              <td><%= task.community_num %></td>
-              <td><%= task.staff_num %></td>
-              <td><%= task.intern_num %></td>
-              <td><%= link_to 'Sign Up', event_sign_up_path(event, task) %></td>
+              <td><%= volunteer_count(:community, task) %></td>
+              <td><%= volunteer_count(:staff, task) %></td>
+              <td><%= volunteer_count(:intern, task) %></td>
+              <% if !has_role?(:admin) %>
+                <td><%= link_to 'Sign Up', event_sign_up_path(event, task) %></td>
+              <% end %>
             </tr>
             <% end %>
           </table>
@@ -55,9 +59,6 @@
   </tbody>
 </table>
 
-
-  <%= render 'calendar' %>
-
-<br>
+<%= render 'calendar' %>
 
 <%= generate_admin_link({title_text: 'New Event', path: new_event_path }) %>
