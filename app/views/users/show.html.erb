@@ -11,6 +11,7 @@
   <thead>
     <tr>
       <th>Date</th>
+      <th>Time</th>
       <th>Added By</th>
       <th>Note Details</th>
     </tr>
@@ -20,7 +21,8 @@
     <%# @user.volunteer_notes.each do |note| %>
     <% @notes.each do |note| %>
       <tr>
-        <td><%= note.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
+        <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
+        <td><%= note.created_at.strftime("%I:%M%p") %></td>
       	<td><%= full_name(note.created_by_user) %></td>
         <td><%= note.description %></td>
       </tr>

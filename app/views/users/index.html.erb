@@ -1,11 +1,10 @@
-<h1>Listing Users</h1>
+<div class="col-sm-8"><h3>Listing Users</h3></div>
+<div class="col-sm-4"><%= button_to 'Create New User', new_user_path, class: 'btn btn-primary btn-xs' %></div>
 
-<%= button_to 'Create New User', new_user_path, class: 'btn btn-primary btn-xs' %>
-
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>User ID</th>
+      <th>ID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Email</th>
@@ -13,6 +12,7 @@
       <th>Created</th>
       <th>Count</th>
       <th>Last Sign In</th>
+      <th>Notes</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -33,24 +33,19 @@
         <% else %>
           <td>No Data</td>
         <% end %>
+        <td><%= user.volunteer_notes.count %></td>
         <td>
-          <div class="btn-group" role="group" aria-label="...">
-            <%= button_to user, class: 'btn btn-xs btn-primary', method: 'get' do %>
-              Show Profile
-            <% end %>       
-
-            <%= button_to edit_user_path(user), class: 'btn btn-xs btn-primary', method: 'get' do %>
-              Edit User
-            <% end %> 
-        
-            <%= button_to new_user_volunteer_note_path(user),class: 'btn btn-xs btn-primary', method: 'get' do %>
-              Add Note 
-              <span class="badge"><%= user.volunteer_notes.count %></span>
-            <% end %>
-          
-            <%= button_to user, class: 'btn btn-xs btn-primary', method: :delete, data: { confirm: 'Are you sure?' } do %>
-              Delete User
-            <% end %> 
+          <!-- Single button -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><%= link_to 'Show Profile', user %></li>
+                <li><%= link_to 'Edit User', edit_user_path(user) %></li>
+                <li><%= link_to 'Add Note', new_user_volunteer_note_path(user)%></li>
+                <li><%= link_to 'Delete User', user, method: :delete, data: { confirm: "Are you sure?" } %></li>
+            </ul>
           </div>
         </td>
       </tr>
