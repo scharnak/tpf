@@ -1,9 +1,9 @@
-<%= month_calendar table: {class: "table table-bordered table-striped calendar"}, events: @events do |date, events| %>
+<%= month_calendar table: {class: "table table-bordered calendar"}, events: @events do |date, events| %>
 
 		<%= date.strftime("%d") %>
 		<ul class="list-group ">
 		<% events.each do |e| %>
-			<li class="list-group-item"><%= link_to e.name, event_path(e) %></li>
+			<li class="list-group-item"><%= link_to e.event_type.name, event_path(e) %></li>
 		<% end %>
 		</ul>
 <% end %>

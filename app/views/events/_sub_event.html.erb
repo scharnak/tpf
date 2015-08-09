@@ -1,35 +1,54 @@
-  <table class="table table-bordered">
+<% @tasks.each do |task| %>
+  <div class="row task-row">
+    <div class="col-md-6">
+      <div class="task-row-header">
+        <h4><%= task.name %> | <small><%= task.start_time.strftime("%l:%M %p") + " to " + task.end_time.strftime("%l:%M%p") %></small></h4>
+      </div>
 
-    <tr>
-      <th>Task Type</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-      <% if current_user.role == 'admin' || current_user.role == 'community' %>
-        <th>Community</th>
-      <% end %>
-      <% if current_user.role == 'admin' || current_user.role == 'staff' %>
-        <th>Staff</th>
-      <% end %>
-      <% if current_user.role == 'admin' || current_user.role == 'intern' %>
-        <th>Interns</th>
-      <% end %>
-    </tr>
-
-    <% @event.sub_events.each do |task| %>
-      <tr>
-        <td><%= link_to task.name, event_sub_event_path(@event, task) %></td>
-        <td><%= task.start_time.strftime("%l:%M%p") %></td>
-        <td><%= task.end_time.strftime("%l:%M%p") %></td>
-        <% if current_user.role == 'admin' || current_user.role == 'community' %>
-          <td><%= volunteer_count(:community,task)%></td>
-        <% end %>
-        <% if current_user.role == 'admin' || current_user.role == 'staff' %>
-          <td><%= volunteer_count(:staff,task) %></td>
-        <% end %>
-        <% if current_user.role == 'admin' || current_user.role == 'intern' %>
-          <td><%= volunteer_count(:intern,task) %></td>
-        <% end %>
-      </tr>
-    <% end %>
-
-  </table>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus dolor et pharetra dapibus. Vestibulum egestas enim quis arcu rutrum dictum. Nullam sit amet massa et ipsum auctor aliquam quis at enim. Morbi porttitor pretium interdum. Nam at vehicula tortor, sed pellentesque tellus. Mauris ac lacinia arcu. Aliquam porta justo risus. Sed pretium, metus nec dignissim mattis, felis mauris suscipit sem, et sodales tortor sapien id nisi. Sed gravida pulvinar mauris, vel sodales ex consequat et.</p>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="glyphicon glyphicon-exclamation-sign
+"></i> Volunteer Information
+          </div>
+           <table class="table table-bordered table-event-tasks">
+            <tr>
+              <th>Hours</th>
+              <td><%= ((task.end_time - task.start_time)/ 3600).round %></td>
+            </tr>
+            <% if current_user.role == 'admin' || current_user.role == 'community' %>
+              <tr>
+                <th>Community Volunteers</th>
+                <td><%= volunteer_count(:community,task)%></td>
+              </tr>
+              <tr>
+                <th>Volunteers Needed</th>
+                <td><%= volunteer_needed(:community, task) %></td>
+              </tr>
+              <% if !task.users.blank? %>
+                <tr>
+                  <th>Users Volunteering</th>
+                  <td>
+                      <ul class="list-group">
+                        <% task.users.each do |user| %>
+                          <li class="list-group-item"><%= full_name(user) %></li>
+                        <% end %>
+                      </ul>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            <tr>
+              <td colspan='2'>
+                <%= button_to event_sign_up_path(@event, task), class: 'btn btn-primary', method: 'get' do %>
+                    <i class='glyphicon glyphicon-ok'></i> Sign Up!
+                <% end %>
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  </div>
+<% end %>

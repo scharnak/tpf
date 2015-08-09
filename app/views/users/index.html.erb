@@ -1,7 +1,7 @@
 <div class="col-sm-8"><h3>Listing Users</h3></div>
 <div class="col-sm-4"><%= button_to 'Create New User', new_user_path, class: 'btn btn-primary btn-xs' %></div>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-condensed table-hover">
   <thead>
     <tr>
       <th>ID</th>
@@ -53,7 +53,6 @@
   </tbody>
 </table>
 
-
-<%= will_paginate @users %>
+<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 
 <!-- Add in a button dropdown for how many to display per page -->

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ROLES = %i[guest community staff intern admin]
+  ROLES = %i[community staff intern admin]
 
   has_many :volunteer_notes
   has_many :user_sub_events
@@ -32,6 +32,6 @@ class User < ActiveRecord::Base
 
   def set_defaults
     self.approved = 0
-    self.role = 'guest'
+    self.role = ''
   end
 end

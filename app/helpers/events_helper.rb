@@ -7,4 +7,10 @@ module EventsHelper
     "#{count} of #{task.try(role.to_s + '_num')}"
   end
 
+  def volunteer_needed(role,sub_event=nil)
+  	task = sub_event ||= @sub_event
+    count = task.volunteer_count(role)
+    "#{task.try(role.to_s + '_num').to_i-count}"
+  end
+
 end

@@ -5,9 +5,9 @@
 .calendar td {
   height: 100px;
   width: 14.28%;
-  font-size:0.7em;
+  font-size: 0.8em;
+  text-align: left;
 }
-
 
 .event_listing {
   display: none;
@@ -20,4 +20,8 @@
 
 .calendar-header, .calendar-header a {
 	font-weight:bold;
+}
+
+.past, .prev-month {
+	background-color:#eeeeee;
 }

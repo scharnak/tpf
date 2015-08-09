@@ -19,9 +19,13 @@ class UsersController < ApplicationController
 	end
 
 	def approve
-		@user.update_attribute(:role, params[:user][:role])
-		@user.update_attribute(:approved,1)
-		redirect_to users_approve_users_path, :notice => "User has been approved!"
+		if !params[:user][:role].blank?
+			@user.update_attribute(:role, params[:user][:role])
+			@user.update_attribute(:approved,1)
+			redirect_to users_approve_users_path, :notice => "User has been approved!"
+		else
+			redirect_to users_approve_users_path, :alert => "You must select a user role."
+		end
 	end
 
 	def index

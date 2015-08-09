@@ -16,19 +16,17 @@
  */
 
 
-// Example using 'Cerulean' bootswatch
-
 //Import bootstrap-sprockets
 @import "bootstrap-sprockets"
 
 // Import cerulean variables
-@import "bootswatch/flatly/variables"
+//@import "bootswatch/flatly/variables"
 
 // Then bootstrap itself
 @import "bootstrap"
 
 // And finally bootswatch style itself
-@import "bootswatch/flatly/bootswatch"
+//@import "bootswatch/flatly/bootswatch"
 
 body 
 	background: image_url('bg.png')
@@ -46,3 +44,22 @@ body
 	font-size: 12px
 	line-height: 1.5
 	border-radius: 3px
+
+.no-border
+	border: 0px !IMPORTANT
+
+.task-row
+	padding: 25px
+	border-radius: 5px
+	border: solid 1px #cccccc
+	margin: 0 0 5px 0
+
+.table-event-tasks td, .table-event-tasks th
+	text-align: center
+
+.task-row-header
+	border-bottom: solid 1px #cccccc
+	margin: 0 0 15px 0
+
+.remove-margin-top
+	margin-top: 0px

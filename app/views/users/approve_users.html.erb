@@ -1,3 +1,4 @@
+<% if !@users.blank? %>
 <h3>Users Pending Approval</h3>
 <table class="table table-striped table-bordered">
 	<tr>
@@ -13,7 +14,7 @@
 		<td><%= full_name(user) %></td>
 		<td>
 			<div class="form-group">
-      				<%= f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize},{:selected => user.role}, {class: "form-control input-xs"}) %>
+      				<%= f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize},{:include_blank => "Please select",:selected => user.role}, {class: "form-control input-xs"}) %>
     		</div>
 		</td>
 		<td><%= user.email %></td>
@@ -31,6 +32,9 @@
 		<% end %>
 	<% end %>
 </table>
+<% else %>
+<h3>There are no users pending approval. </h3>
+<% end %>
 <!-- 
 Top Priority: Get dashboard done, and events done.  if admin signs up, count them as staff.  Admin can add users to sub_events.  Reminder emails.
 
