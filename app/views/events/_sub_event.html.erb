@@ -4,9 +4,15 @@
       <th>Task Type</th>
       <th>Start Time</th>
       <th>End Time</th>
-      <th>Community</th>
-      <th>Staff</th>
-      <th>Interns</th>
+      <% if current_user.role == 'admin' || current_user.role == 'community' %>
+        <th>Community</th>
+      <% end %>
+      <% if current_user.role == 'admin' || current_user.role == 'staff' %>
+        <th>Staff</th>
+      <% end %>
+      <% if current_user.role == 'admin' || current_user.role == 'intern' %>
+        <th>Interns</th>
+      <% end %>
     </tr>
 
     <% @event.sub_events.each do |task| %>
@@ -14,9 +20,15 @@
         <td><%= link_to task.name, event_sub_event_path(@event, task) %></td>
         <td><%= task.start_time.strftime("%l:%M%p") %></td>
         <td><%= task.end_time.strftime("%l:%M%p") %></td>
-        <td><%= volunteer_count(:community,task)%></td>
-        <td><%= volunteer_count(:staff,task) %></td>
-        <td><%= volunteer_count(:intern,task) %></td>
+        <% if current_user.role == 'admin' || current_user.role == 'community' %>
+          <td><%= volunteer_count(:community,task)%></td>
+        <% end %>
+        <% if current_user.role == 'admin' || current_user.role == 'staff' %>
+          <td><%= volunteer_count(:staff,task) %></td>
+        <% end %>
+        <% if current_user.role == 'admin' || current_user.role == 'intern' %>
+          <td><%= volunteer_count(:intern,task) %></td>
+        <% end %>
       </tr>
     <% end %>
 

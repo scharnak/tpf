@@ -20,20 +20,26 @@
   <%= @sub_event.end_time %>
 </p>
 
+<% if current_user.role == 'admin' || current_user.role == 'intern' %>
 <p>
   <strong>Intern num:</strong>
   <%= volunteer_count(:intern) %>
 </p>
+<% end %>
 
+<% if current_user.role == 'admin' || current_user.role == 'staff' %>
 <p>
   <strong>Staff num:</strong>
   <%= volunteer_count(:staff) %>
 </p>
+<% end %>
 
+<% if current_user.role == 'admin' || current_user.role == 'community' %>
 <p>
   <strong>Community num:</strong>
   <%= volunteer_count(:community) %>
 </p>
+<% end %>
 
 <%= link_to 'Sign Up', event_sign_up_path %>
 <BR/>

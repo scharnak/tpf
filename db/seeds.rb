@@ -30,16 +30,16 @@ preference_type_array.each {
 
 preference_weekly_array = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
 
-preference_weekly_array.each {|a| Preference.create(preference_type_id: 17, name: a)}
+preference_weekly_array.each {|a| Preference.create(preference_type_id: 1, name: a)}
 
 preference_frequency_array = ["Weekly", "Twice a Month", "Monthly", "Twice a Semester"]
 
-preference_frequency_array.each {|a| Preference.create(preference_type_id: 18, name: a)}
+preference_frequency_array.each {|a| Preference.create(preference_type_id: 2, name: a)}
 
 preference_interest_array = ["Food Service", "Education/Planned Small Groups", "Food Preperation", "Administrative Assistance", "Grant Writing", "Research"]
 
-preference_interest_array.each {|a| Preference.create(preference_type_id: 19, name: a)}
+preference_interest_array.each {|a| Preference.create(preference_type_id: 3, name: a)}
 
 preference_group_array = ["Yes, Mondays", "Yes Tuesdays", "No"]
 
-preference_group_array.each {|a| Preference.create(preference_type_id: 20, name: a)}
+preference_group_array.each {|a| Preference.create(preference_type_id: 4, name: a)}

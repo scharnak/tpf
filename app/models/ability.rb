@@ -12,15 +12,26 @@ class Ability
         can :manage, :all
     end
 
-    if user.role == 'staff' || user.role == 'community'
+    if user.role == 'staff' || user.role == 'community' || user.role == 'intern'
         can [:read, :manage, :destroy, :update], User, :id => user.id
-        cannot [:index, :create], User
+        cannot [:index, :create, :approve_users, :approve], User
         cannot [:read,:create,:update,:destroy,:manage], EventType
         cannot [:read,:create,:update,:destroy,:manage], VolunteerNote
         cannot [:create,:update,:destroy,:manage], Event
         can [:read], Event
         cannot [:create,:update,:destroy,:manage], SubEvent
         can [:read, :sign_up], SubEvent
+        cannot [:create,:update,:destroy,:manage], Preference
+        cannot [:create,:update,:destroy,:manage], PreferenceType
+    end
+
+    if user.role == 'guest'
+        can [:read, :manage, :destroy, :update], User, :id => user.id
+        cannot [:index, :create, :approve_users, :approve], User
+        cannot [:read,:create,:update,:destroy,:manage], EventType
+        cannot [:read,:create,:update,:destroy,:manage], VolunteerNote
+        cannot [:create,:update,:destroy,:manage], Event
+        cannot [:create,:update,:destroy,:manage], SubEvent
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
     end

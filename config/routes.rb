@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     get '/sub_events/:id/sign_up', to: 'sub_events#sign_up', as: :sign_up
   end
 
-  post '/users/delete_user_restaurant'
+  get '/users/approve_users'
+
+  match 'admin/users/:id/approve', :to => 'users#approve', :as => 'admin_user_approve', :via => :post
 
   #need to route user ID and sub event ID to sign up in the sub_events controller
 

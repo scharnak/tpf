@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :preference_type_id %><br>
-    <%= f.number_field :preference_type_id %>
-  </div>
+  <div class="form-group"> 
+    <%= f.label :preference_type_id, "Preference Type" %><br />
+    <%= f.collection_select :preference_type_id, PreferenceType.order(:name),:id,:name %>
+  </div>  
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>

@@ -1,0 +1,39 @@
+<h3>Users Pending Approval</h3>
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>Name</th>
+		<th>Role</th>
+		<th>Email</th>
+		<th>Restaurants</th>	
+		<th>Actions</th>
+	</tr>
+	<% @users.each do |user| %>
+		<%= form_for user, :method => 'POST', :url => admin_user_approve_path(user) do |f| %> 
+	<tr>
+		<td><%= full_name(user) %></td>
+		<td>
+			<div class="form-group">
+      				<%= f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize},{:selected => user.role}, {class: "form-control input-xs"}) %>
+    		</div>
+		</td>
+		<td><%= user.email %></td>
+		<td>
+			<% if !user.restaurants.empty? %> 
+				<% user.restaurants.each do |r| %>
+					<%= r.name %><br/>
+				<% end %>
+			<% else %>
+				None Selected
+			<% end %>
+		</td>
+		<td><%= f.submit "Approve", :class => "btn btn-primary btn-xs" %></td>
+	</tr>
+		<% end %>
+	<% end %>
+</table>
+<!-- 
+Top Priority: Get dashboard done, and events done.  if admin signs up, count them as staff.  Admin can add users to sub_events.  Reminder emails.
+
+to do: need to make a disapprove button. both approve and disapprove need to email the user and notify them.  I also need to force the admin to change the role of the user before approval.  Add a spot for if they passed the background check, and if they did, the date.  Get a reminder for users who are coming up on their 2 year mark.  Change the record to red when its a month out.  Employees get the background check for free.  So if they are staff, do not send the link in the email.  We need to have a reminder email that sends out one email per event as a reminder.  there a subject, body, days before drop down.  The staff role people would get a different email.  The staff email would include the list of community volunteers (the names, and contact information), the community would just get message.  A link should be added to navigation for managing emails. 
+
+-->

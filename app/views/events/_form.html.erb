@@ -26,10 +26,10 @@
         </div>
       </div>
 
-        <div class="field">
+        <div class="form-group">
           <%= f.label :date %><br>
-          <%= f.date_select :date %>
-        </div>
+          <%#= f.date_select :date %>
+          <%= f.text_field :date, :class => 'form-control datepicker' %>
 
           <div class="actions">
             <%= f.submit "Create Event", :class => "btn btn-primary" %>

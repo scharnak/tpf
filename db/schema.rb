@@ -11,12 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731013926) do
+ActiveRecord::Schema.define(version: 20150808211416) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "street",     limit: 255
+    t.string   "city",       limit: 255
+    t.string   "state",      limit: 255
+    t.integer  "zip_code",   limit: 4
   end
 
   create_table "events", force: :cascade do |t|
@@ -25,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150731013926) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.datetime "date"
+    t.string   "day",           limit: 255
   end
 
   create_table "preference_types", force: :cascade do |t|
@@ -101,6 +106,7 @@ ActiveRecord::Schema.define(version: 20150731013926) do
     t.string   "fname",                  limit: 255
     t.string   "lname",                  limit: 255
     t.string   "role",                   limit: 255
+    t.boolean  "approved",               limit: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

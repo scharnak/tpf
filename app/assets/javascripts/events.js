@@ -1,4 +1,9 @@
 $(function(){
+  $('.datepicker').datepicker({
+   format: "yyyy-mm-dd",
+   autoclose: true,
+   todayHighlight: true
+})
   $(".list_view_btn").click(function(){
     if($(".event_listing").css("display") == "none" ){
         $(".calendar").hide();

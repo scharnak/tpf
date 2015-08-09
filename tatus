@@ -1,0 +1,65 @@
+[33mcommit a8cae6d07cacca419754542a9559e91666f7433c[m
+Author: Eric Scharnak <eric.scharnak@gmail.com>
+Date:   Wed Aug 5 16:14:43 2015 -0400
+
+    Devise action mailer set up
+
+[33mcommit a74882f512721b5e3440aba4ffc7398a21dac8a6[m
+Author: Eric Scharnak <eric.scharnak@gmail.com>
+Date:   Sat Aug 1 23:57:31 2015 -0400
+
+    Bunch of front end changes, action mailer is set up for devise.
+
+[33mcommit df920e0fd2889f8dcc5fc63af8f8d0a95a4162f4[m
+Author: Eric Scharnak <eric.scharnak@gmail.com>
+Date:   Fri Jul 31 03:00:11 2015 -0400
+
+    User preferences work.  Did some front end changes.
+
+[33mcommit ed19570ec5fe6a752b1e8eb7f707fe3a35cb6920[m
+Author: Eric Scharnak <eric.scharnak@gmail.com>
+Date:   Thu Jul 30 13:24:32 2015 -0400
+
+    Checkboxes for user_restaurants working in database
+
+[33mcommit d689ed12fcfbac99a2ed6d8191a65014eb11fe8a[m
+Author: Adam Fernung <adam.fernung@mobiwm.com>
+Date:   Thu Jul 30 01:26:16 2015 -0400
+
+    javascript changes
+
+[33mcommit aa7e53b8a3c3748af4c5d2cc9b6d34d8a6e5f644[m
+Author: Adam Fernung <adam.fernung@mobiwm.com>
+Date:   Wed Jul 29 23:07:05 2015 -0400
+
+    checkboxes actually working now
+
+[33mcommit 0e1607198abd8fa0469089e4da2bf52c8bc91a61[m
+Author: Adam Fernung <adam.fernung@mobiwm.com>
+Date:   Mon Jul 20 21:04:52 2015 -0400
+
+    a whole bunch of changes
+
+[33mcommit 18de6015603b734c8677c0c5171d065015fd4f73[m
+Author: Adam Fernung <adam.fernung@mobiwm.com>
+Date:   Fri Jul 3 19:19:27 2015 -0400
+
+    Removed database.yml
+
+[33mcommit a6c4983ef29a8245f44450c8ba8d3de351e924a4[m
+Author: Adam Fernung <adam.fernung@mobiwm.com>
+Date:   Fri Jul 3 19:07:19 2015 -0400
+
+    lots of front end work and backend work and everything in between
+
+[33mcommit 1a168a2964e334569edb9b22581deae1dbc8d229[m
+Author: Eric Scharnak <eric.scharnak@gmail.com>
+Date:   Fri Jul 3 14:59:12 2015 -0400
+
+    Sync with Adam
+
+[33mcommit f3ab432846bb77ed6df92d3e3864b0fa3076278d[m
+Author: Eric Scharnak <eric.scharnak@gmail.com>
+Date:   Fri Jul 3 14:03:55 2015 -0400
+
+    Initial Commit

@@ -1,10 +1,27 @@
 class UsersController < ApplicationController
 
-	before_action :set_user, only: [:show, :edit, :update, :destroy]
+	before_action :set_user, only: [:show, :edit, :update, :destroy, :approve]
 	before_action :authenticate_user!
+	#before_action :check, only: [:approve]
 	load_and_authorize_resource
 
+	def check
+		raise("Check")
+	end
+
 	def dashboard
+		@preferences = current_user.preferences.where(preference_type_id: 1)
+		@suggested_tasks = Event.where('day in (?)', @preferences.map {|x| x.name }).order("date ASC")
+	end
+
+	def approve_users
+		@users = User.where(approved: 'false')
+	end
+
+	def approve
+		@user.update_attribute(:role, params[:user][:role])
+		@user.update_attribute(:approved,1)
+		redirect_to users_approve_users_path, :notice => "User has been approved!"
 	end
 
 	def index
@@ -59,6 +76,6 @@ class UsersController < ApplicationController
 
   	# Never trust parameters from the scary internet, only allow the white list through.
   	def user_params
-    		params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :current_password, :role)
+    		params.require(:user).permit(:fname, :lname, :email, :password, :password_confirmation, :current_password, :role, :approved)
   	end
 end
