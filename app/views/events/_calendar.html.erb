@@ -1,9 +1,13 @@
 <%= month_calendar table: {class: "table table-bordered calendar"}, events: @events do |date, events| %>
 
 		<%= date.strftime("%d") %>
-		<ul class="list-group ">
+		<ul class="list-group calendar-list">
 		<% events.each do |e| %>
-			<li class="list-group-item"><%= link_to e.event_type.name, event_path(e) %></li>
+			<li class="list-group-item calendar-list-item">
+				<%= button_to event_path(e), method: 'get', class: 'btn btn-default btn-xs form-control' do %>
+					<%= e.event_type.name %>
+				<% end %>
+			</li>
 		<% end %>
 		</ul>
 <% end %>

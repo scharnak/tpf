@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808211416) do
+ActiveRecord::Schema.define(version: 20150809100527) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150808211416) do
     t.datetime "updated_at",                null: false
     t.datetime "date"
     t.string   "day",           limit: 255
+    t.boolean  "completed",     limit: 1
   end
 
   create_table "preference_types", force: :cascade do |t|

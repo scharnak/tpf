@@ -38,6 +38,6 @@
     <%= f.number_field :community_num %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", :class => "btn btn-primary", data: { disable_with: "Saving..." } %>
   </div>
 <% end %>

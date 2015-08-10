@@ -27,7 +27,10 @@
 				None Selected
 			<% end %>
 		</td>
-		<td><%= f.submit "Approve", :class => "btn btn-primary btn-xs" %></td>
+		<td><%= button_to users_approve_users_path, :class => "btn btn-primary btn-xs", data: { disable_with: "Approving..." } do %>
+				Approve user
+			<% end %>
+		</td>
 	</tr>
 		<% end %>
 	<% end %>

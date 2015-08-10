@@ -20,7 +20,7 @@ class Ability
         cannot [:create,:update,:destroy,:manage], Event
         can [:read], Event
         cannot [:create,:update,:destroy,:manage], SubEvent
-        can [:read, :sign_up], SubEvent
+        can [:read, :sign_up, :task_remove], SubEvent
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
     end

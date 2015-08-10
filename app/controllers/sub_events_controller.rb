@@ -8,6 +8,17 @@ class SubEventsController < ApplicationController
     @sub_events = SubEvent.all
   end
 
+  def task_remove
+    hours = ((Time.now-@sub_event.start_time)/3600).round
+    if hours <= 24
+      response = {alert: "This task begins in #{hours} hours.  You must give at least 24 hours notice to remove yourself from a task!"}
+    else
+      @sub_event.users.delete(current_user)
+      response = {notice: "You have been removed from this task."}
+    end 
+    redirect_to event_path(@sub_event.event), response
+  end
+
   def sign_up
     if @sub_event.volunteer_count(current_user.role) < @sub_event.try(current_user.role + '_num')
 
@@ -18,9 +29,9 @@ class SubEventsController < ApplicationController
       else
         response =  {alert: "You've already been added to this task!"}
       end
-      redirect_to events_path, response
+      redirect_to event_path(@sub_event.event), response
     else
-      redirect_to events_path, alert: "This task is already full!"
+      redirect_to event_path(@sub_event.event), alert: "This task is already full!"
     end
   end
 

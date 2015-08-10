@@ -20,6 +20,6 @@
     <%= f.text_field :name %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", :class => "btn btn-primary", data: { disable_with: "Saving..." } %>
   </div>
 <% end %>

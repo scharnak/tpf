@@ -1,3 +1,22 @@
+<% if has_role?(:admin) %>
+	<ul class="nav nav-pills">
+	  	<li role="presentation">
+	  		<% if can? :create, @sub_event %>
+				<%= link_to "Add Task", new_event_sub_event_path(@event), method: "get" %>
+			<% end %>
+		</li>
+		<li role="presentaion">
+			<% if can? :edit, @event %>
+				<%= link_to "Edit Event", edit_event_path(@event), method: "get" %>
+			<% end %>
+		</li>
+		<li role="presentaion">
+			<% if can? :complete_event, @event %>
+				<%= link_to "Complete Event", complete_event_path(@event), method: "get" %>
+			<% end %>
+		</li>
+	</ul>
+<% end %>
 <div class="row">
 	<div class="col-md-6">
 		<div class="page-header remove-margin-top no-border">
@@ -16,14 +35,7 @@
 </div>
 
 
+
 		<%= render "sub_event" %>
-
-		<% if can? :create, @sub_event %>
-			<%= button_to "Add Task", new_event_sub_event_path(@event), class: "btn btn-xs btn-primary", method: "get" %>
-		<% end %>
-
-		<% if can? :edit, @event %>
-			<%= button_to "Edit Event", edit_event_path(@event), class: "btn btn-xs btn-primary", method: "get" %>
-		<% end %>
 
 		<%= button_to 'Back', events_path, class: "btn btn-xs btn-primary", method:"get" %>

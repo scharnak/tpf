@@ -18,35 +18,51 @@
               <th>Hours</th>
               <td><%= ((task.end_time - task.start_time)/ 3600).round %></td>
             </tr>
-            <% if current_user.role == 'admin' || current_user.role == 'community' %>
-              <tr>
-                <th>Community Volunteers</th>
-                <td><%= volunteer_count(:community,task)%></td>
-              </tr>
-              <tr>
-                <th>Volunteers Needed</th>
-                <td><%= volunteer_needed(:community, task) %></td>
-              </tr>
-              <% if !task.users.blank? %>
+      
+            <% User::ROLES.each do |role| %>
+              <% if current_user.role == 'admin' || current_user.role == role.to_s %>
                 <tr>
-                  <th>Users Volunteering</th>
-                  <td>
-                      <ul class="list-group">
-                        <% task.users.each do |user| %>
-                          <li class="list-group-item"><%= full_name(user) %></li>
-                        <% end %>
-                      </ul>
-                  </td>
+                  <th><%= role.capitalize %> Volunteers</th>
+                  <td><%= volunteer_count(role,task)%></td>
                 </tr>
-              <% end %>
+                <tr>
+                  <th><%= role.capitalize %> Volunteers Needed</th>
+                  <td><%= volunteer_needed(role, task) %></td>
+                </tr>
+                
+              <% end %>          
             <% end %>
-            <tr>
-              <td colspan='2'>
-                <%= button_to event_sign_up_path(@event, task), class: 'btn btn-primary', method: 'get' do %>
-                    <i class='glyphicon glyphicon-ok'></i> Sign Up!
+            <% if !task.users.blank? %>
+                  <tr>
+                    <th>Users Volunteering</th>
+                    <td>
+                        <ul class="list-group">
+                          <% task.users.each do |user| %>
+                            <% if user.role == current_user.role || current_user.role == 'admin' %>
+                              <li class="list-group-item">
+                                  <%= full_name(user) + ' (' + user.role.capitalize + ')' %>
+                              </li>
+                            <% end %>
+                          <% end %>
+                        </ul>
+                    </td>
+                  </tr>
                 <% end %>
-              </td>
-            </tr>
+              <% if !current_user.role == 'admin' %>
+              <tr>
+                <td colspan='2'>
+                  <% if !is_registered?(task).include?(current_user.id.to_s) %>
+                      <%= button_to event_sign_up_path(@event, task), class: 'btn btn-primary', method: 'get', data: { disable_with: "Adding..." } do %>
+                        <i class='glyphicon glyphicon-ok-sign'></i> Add Me to Event!
+                      <% end %>
+                  <% else %>
+                      <%= button_to event_task_remove_path(@event, task), class: 'btn btn-danger', method: 'get',data: { disable_with: "Removing..." } do %>
+                        <i class='glyphicon glyphicon-remove-sign'></i> Remove Me from Event!
+                      <% end %>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>    
           </table>
       </div>
     </div>

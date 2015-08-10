@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   resources :events do
     resources :sub_events
     get '/sub_events/:id/sign_up', to: 'sub_events#sign_up', as: :sign_up
+    get '/sub_events/:id/task_remove', to: 'sub_events#task_remove', as: :task_remove
   end
+
+  get '/events/:id/complete_event', to: 'events#complete_event', as: :complete_event
 
   get '/users/approve_users'
 

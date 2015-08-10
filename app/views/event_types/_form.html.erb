@@ -32,6 +32,6 @@
     <%= f.text_field :zip_code, class: 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit "Submit", :class => "btn btn-primary" %>
+    <%= f.submit "Save", :class => "btn btn-primary", data: { disable_with: "Saving..." } %>
   </div>
 <% end %>

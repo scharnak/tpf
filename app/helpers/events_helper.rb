@@ -13,4 +13,9 @@ module EventsHelper
     "#{task.try(role.to_s + '_num').to_i-count}"
   end
 
+  def is_registered?(task)
+  	user = task.users.pluck(:user_id)
+  	"User id is #{user}"
+  end
+
 end

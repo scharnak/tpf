@@ -1,7 +1,11 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :complete_event]
   after_action :email, only: [:create]
   #before_action :check, only: [:create]
+
+  before_filter :set_start_day
+
+
 
   load_and_authorize_resource
 
@@ -13,10 +17,15 @@ class EventsController < ApplicationController
     
   end
 
+  def complete_event
+      @event.update_attribute(:completed,1)
+      redirect_to events_path, :notice => "Event has been completed."
+  end
+
   # GET /events
   # GET /events.json
   def index
-    @events = Event.order("date DESC").all
+    @events = Event.order("date DESC").where(completed: 'false')
   end
 
   # GET /events/1
@@ -37,15 +46,16 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
+      @event = Event.new(event_params)
+      @event.completed = 'false'
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-      else
-        format.html { render :new }
+      respond_to do |format|
+        if @event.save
+          format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        else
+          format.html { render :new }
+        end
       end
-    end
   end
 
   # PATCH/PUT /events/1
@@ -78,6 +88,10 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:event_type_id, :name, :date)
+      params.require(:event).permit(:event_type_id, :name, :date, :completed)
+    end
+
+    def set_start_day
+      Date.beginning_of_week = :monday
     end
 end

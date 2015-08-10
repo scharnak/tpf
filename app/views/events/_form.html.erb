@@ -32,7 +32,7 @@
           <%= f.text_field :date, :class => 'form-control datepicker' %>
 
           <div class="actions">
-            <%= f.submit "Create Event", :class => "btn btn-primary" %>
+            <%= f.submit "Save", :class => "btn btn-primary", data: { disable_with: "Saving..." } %>
           </div>
 
 <% end %>
