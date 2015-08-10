@@ -1,0 +1,2 @@
+module SubEventTypesHelper
+end

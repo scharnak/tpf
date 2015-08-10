@@ -3,6 +3,18 @@
   <%= @user.fname %>
 </p>
 
+<% if current_user.role == 'admin' || current_user.id == @user.id %>
+  <p>
+    <strong>Address:</strong>
+    <%= @user.street %><BR>
+    <%= @user.city %><BR>
+    <%= @user.state %><BR>
+    <%= @user.zip_code %><BR>
+  </p>
+<% end %>
+
+
+
 <% if can? :read, @user.volunteer_notes %>
 
 <%= link_to "Add New Note", new_user_volunteer_note_path(@user) %>

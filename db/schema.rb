@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809100527) do
+ActiveRecord::Schema.define(version: 20150810055844) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -58,16 +58,24 @@ ActiveRecord::Schema.define(version: 20150809100527) do
     t.datetime "updated_at",                            null: false
   end
 
-  create_table "sub_events", force: :cascade do |t|
-    t.integer  "event_id",      limit: 4
-    t.string   "name",          limit: 255
-    t.integer  "intern_num",    limit: 4
-    t.integer  "staff_num",     limit: 4
-    t.integer  "community_num", limit: 4
+  create_table "sub_event_types", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "sub_events", force: :cascade do |t|
+    t.integer  "event_id",          limit: 4
+    t.string   "name",              limit: 255
+    t.integer  "intern_num",        limit: 4
+    t.integer  "staff_num",         limit: 4
+    t.integer  "community_num",     limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer  "sub_event_type_id", limit: 4
   end
 
   create_table "user_preferences", force: :cascade do |t|
@@ -108,6 +116,10 @@ ActiveRecord::Schema.define(version: 20150809100527) do
     t.string   "lname",                  limit: 255
     t.string   "role",                   limit: 255
     t.boolean  "approved",               limit: 1
+    t.string   "street",                 limit: 255
+    t.string   "city",                   limit: 255
+    t.string   "state",                  limit: 255
+    t.integer  "zip_code",               limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

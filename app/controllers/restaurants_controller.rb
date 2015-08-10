@@ -1,6 +1,8 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource
+
   # GET /restaurants
   # GET /restaurants.json
   def index

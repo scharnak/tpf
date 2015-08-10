@@ -19,7 +19,27 @@
 
           <div class="form-group">
             <%= f.label :email %><br />
-            <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
+            <%= f.text_field :email, :autofocus => true, :class => "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :street, "Street Address" %><br />
+            <%= f.text_field :street, :autofocus => true, :class => "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :city %><br />
+            <%= f.text_field :city, :autofocus => true, :class => "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :state %><br />
+            <%= f.text_field :state, :autofocus => true, :class => "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :zip_code %><br />
+            <%= f.text_field :zip_code, :autofocus => true, :class => "form-control" %>
           </div>
 
       </div>

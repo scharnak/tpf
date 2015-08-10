@@ -55,6 +55,7 @@ class SubEventsController < ApplicationController
   # POST /sub_events.json
   def create
     @sub_event = SubEvent.new(sub_event_params)
+    @sub_event.event_id = params[:event_id]
 
     respond_to do |format|
       if @sub_event.save
@@ -98,6 +99,6 @@ class SubEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sub_event_params
-      params.require(:sub_event).permit(:event_id, :name, :intern_num, :staff_num, :community_num, :start_time, :end_time)
+      params.require(:sub_event).permit(:sub_event_type_id, :event_id, :name, :intern_num, :staff_num, :community_num, :start_time, :end_time)
     end
 end

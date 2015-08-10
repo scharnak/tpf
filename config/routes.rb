@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :sub_event_types
+
   resources :preference_types
 
   resources :preferences

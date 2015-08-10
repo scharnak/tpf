@@ -2,10 +2,10 @@
   <div class="row task-row">
     <div class="col-md-6">
       <div class="task-row-header">
-        <h4><%= task.name %> | <small><%= task.start_time.strftime("%l:%M %p") + " to " + task.end_time.strftime("%l:%M%p") %></small></h4>
+        <h4><%= task.sub_event_type.name %> | <small><%= task.start_time.strftime("%l:%M %p") + " to " + task.end_time.strftime("%l:%M%p") %></small></h4>
       </div>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus dolor et pharetra dapibus. Vestibulum egestas enim quis arcu rutrum dictum. Nullam sit amet massa et ipsum auctor aliquam quis at enim. Morbi porttitor pretium interdum. Nam at vehicula tortor, sed pellentesque tellus. Mauris ac lacinia arcu. Aliquam porta justo risus. Sed pretium, metus nec dignissim mattis, felis mauris suscipit sem, et sodales tortor sapien id nisi. Sed gravida pulvinar mauris, vel sodales ex consequat et.</p>
+        <h5><%= task.name %></h5>
+        <p><%= task.sub_event_type.description %>
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -40,7 +40,7 @@
                           <% task.users.each do |user| %>
                             <% if user.role == current_user.role || current_user.role == 'admin' %>
                               <li class="list-group-item">
-                                  <%= full_name(user) + ' (' + user.role.capitalize + ')' %>
+                                  <%= link_to "#{full_name(user)}", user_path(user) %>
                               </li>
                             <% end %>
                           <% end %>
@@ -48,7 +48,7 @@
                     </td>
                   </tr>
                 <% end %>
-              <% if !current_user.role == 'admin' %>
+              <% if current_user.role != 'admin' %>
               <tr>
                 <td colspan='2'>
                   <% if !is_registered?(task).include?(current_user.id.to_s) %>

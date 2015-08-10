@@ -14,6 +14,7 @@ class Ability
 
     if user.role == 'staff' || user.role == 'community' || user.role == 'intern'
         can [:read, :manage, :destroy, :update], User, :id => user.id
+        can [:show], User
         cannot [:index, :create, :approve_users, :approve], User
         cannot [:read,:create,:update,:destroy,:manage], EventType
         cannot [:read,:create,:update,:destroy,:manage], VolunteerNote
@@ -23,6 +24,7 @@ class Ability
         can [:read, :sign_up, :task_remove], SubEvent
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
+        cannot [:create, :update, :destroy, :manage], SubEventType
     end
 
     if user.role == 'guest'
@@ -34,6 +36,7 @@ class Ability
         cannot [:create,:update,:destroy,:manage], SubEvent
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
+        cannot [:create,:update,:destroy,:manage], Restaurant
     end
 
 #use this to hide and show things based on the users role

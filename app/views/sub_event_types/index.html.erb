@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sub Event Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sub_event_types.each do |sub_event_type| %>
+      <tr>
+        <td><%= sub_event_type.name %></td>
+        <td><%= sub_event_type.description %></td>
+        <td><%= link_to 'Show', sub_event_type %></td>
+        <td><%= link_to 'Edit', edit_sub_event_type_path(sub_event_type) %></td>
+        <td><%= link_to 'Destroy', sub_event_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sub event type', new_sub_event_type_path %>

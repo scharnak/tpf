@@ -18,12 +18,16 @@
         <ul class="nav navbar-nav">
           <!-- Signed in menu -->
           <% if user_signed_in? %>
-            <li><%= link_to 'Dashboard', root_path %>
+            <li>
+              <%= link_to root_path, :class => 'navbar-link' do %>
+                <i class="glyphicon glyphicon-dashboard"></i> Dashboard
+              <% end %>
+            </li>
             <% if current_user && has_role?(:admin) %>
               <li>
 
-                <%= link_to users_approve_users_path do %>
-                  Approve Users 
+                <%= link_to users_approve_users_path, :class=>'navbar-link' do %>
+                  <i class="glyphicon glyphicon-user"></i> Approve Users 
                   <% if unapproved.count > 0 %>
                     <span class="badge"><%= unapproved.count %></span>
                   <% end %>
@@ -31,52 +35,68 @@
 
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="glyphicon glyphicon-th"></i> Manage<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Manage Users", users_path %></li>
                   <li><%= link_to "Manage Events", events_path %></li>
                   <li><%= link_to "Manage Event Types", event_types_path %></li>
                   <li><%= link_to "Manage Preferences", preferences_path %></li>
                   <li><%= link_to "Manage Preference Types", preference_types_path %></li>
+                  <li><%= link_to "Manage Sub Event Types", sub_event_types_path %></li>
                 </ul>
               </li>
 
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="glyphicon glyphicon-plus"></i> Create<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Create Users", new_user_path %></li>
                   <li><%= link_to "Create Events", new_event_path %></li>
                   <li><%= link_to "Create Event Types", new_event_type_path %></li>
                   <li><%= link_to "Create Preferences", new_preference_path %></li>
                   <li><%= link_to "Create Preference Types", new_preference_type_path %></li>
+                  <li><%= link_to "Create Sub Event Types", new_sub_event_type_path %></li>
                 </ul>
               </li>
             <% end %>
-            <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
+
+            <li>
+              <a href="#"><i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+            </li>
 
             <% if can? :index, Event %>
               <% if current_user.role == 'admin' %>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events<span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-calendar"></i> Events<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "Active Events", events_path, :class => 'navbar-link' %></li>
                       <li><a href="#" class="navbar-link">Events Backlog</a></li>
                     </ul>
                 </li>
               <% else %>
-                <li><%= link_to 'Events', events_path, :class => 'navbar-link' %></li>
+                <li>
+                  <%= link_to events_path, :class => 'navbar-link' do %>
+                    <i class="glyphicon glyphicon-calendar"></i> Events
+                  <% end %>
+                </li>
               <% end %>
+            <li>
+              <%= link_to edit_user_registration_path, :class => 'navbar-link' do %>
+                <i class="glyphicon glyphicon-cog"></i> Edit Account
+              <% end %>
+            </li>
             <% end %>
           <% end %>
 
         </ul>
 
         <% if user_signed_in? && current_user.fname %>
-          <p class="navbar-text navbar-right">Welcome, <%= current_user.fname + " " + current_user.lname %> (<%= current_user.role %>) | <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></p>
+          <p class="navbar-text navbar-right">Welcome, <%= current_user.fname + " " + current_user.lname %> | <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></p>
         <% else %>
           <p class="navbar-text navbar-right">
             <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> | 
-            <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+            <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
           </p>
         <% end %>
     </div><!-- /.navbar-collapse -->

@@ -9,22 +9,22 @@
 <body>
 
 <div class="wrapper container">
-	<div class="col-lg-12">
+
+
 	<%= image_tag('logo.png') %>
 
-		<%= render "shared/navigation" %>
+	<%= render "shared/navigation" %>
 
-		<div id="content">
+	<div id="content">
 			<% if notice %>
 			  <div class="alert alert-success fade in"><%= notice %><button class="close" data-dismiss="alert">&times;</button></div>
 			<% end %>
 			<% if alert %>
 			  <div class="alert alert-danger fade in"><%= alert %><button class="close" data-dismiss="alert">&times;</button></div>
 			<% end %>
-
-			<%= yield %>
-		</div>
+		<%= yield %>
 	</div>
+
 </div>
 </body>
 </html>

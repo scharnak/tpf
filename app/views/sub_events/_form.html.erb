@@ -11,7 +11,13 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :event_id %>
+        <div class="form-group">
+        <%= f.label :sub_event_type, 'Event Type', class: "control-label" %>
+        <div class="controls">
+          <%= select_tag "sub_event[sub_event_type_id]", options_from_collection_for_select(SubEventType.all, 'id', 'name'), class: "form-control" %>
+        </div>
+      </div>
+
 
   <div class="field">
     <%= f.label :name %><br>
