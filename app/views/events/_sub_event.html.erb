@@ -2,9 +2,9 @@
   <div class="row task-row">
     <div class="col-md-6">
       <div class="task-row-header">
-        <h4><%= task.sub_event_type.name %> | <small><%= task.start_time.strftime("%l:%M %p") + " to " + task.end_time.strftime("%l:%M%p") %></small></h4>
+        <h3><%= task.sub_event_type.name %> | <small><%= task.name %></small></h3>
       </div>
-        <h5><%= task.name %></h5>
+        <h5><b><i>Time: <%= task.start_time.strftime("%l:%M %p") + " to " + task.end_time.strftime("%l:%M%p") %></i></b></h5>
         <p><%= task.sub_event_type.description %>
     </div>
     <div class="col-md-6">
@@ -62,6 +62,13 @@
                   <% end %>
                 </td>
               </tr>
+              <% else %>
+                <tr>
+                  <td colspan='2'>
+                  <%= button_to edit_event_sub_event_path(@event, task),class: 'btn btn-primary', method: 'get',data: { disable_with: "Removing..." } do %>
+                        <i class='glyphicon glyphicon-edit'></i> Edit Task
+                      <% end %>
+                  </td>
               <% end %>    
           </table>
       </div>

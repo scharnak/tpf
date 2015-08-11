@@ -9,7 +9,7 @@ class SubEventsController < ApplicationController
   end
 
   def task_remove
-    hours = ((Time.now-@sub_event.start_time)/3600).round
+    hours = ((@sub_event.start_time-Time.now)/1.hour).round
     if hours <= 24
       response = {alert: "This task begins in #{hours} hours.  You must give at least 24 hours notice to remove yourself from a task!"}
     else

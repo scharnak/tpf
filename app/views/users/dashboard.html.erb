@@ -1,71 +1,89 @@
 <% if user_signed_in? %>
 
-	<% if current_user.sub_events.exists? %>
+	<div class="row">
 
-		<h3>My Tasks</h3>
-		<table class="table table-bordered table-striped">
-			<tr>
-				<th>Event Name</th>
-				<th>Task Name</th>
-				<th>Task Type</th>
-				<th>Task Date</th>
-				<th>Task Time</th>
-			</tr>
-			
-				<% current_user.sub_events.each do |task| %>
-			<tr>
-					<td><%= task.event.name %></td>
-					<td><%= link_to task.name, event_sub_event_path(task.event,task)%></td>
-					<td><%= task.event.event_type.name %></td>
-					<td><%= task.event.date.strftime("%m/%d/%Y") %></td>
-					<td><%= task.start_time.strftime("%I:%M%p") %> to <%= task.end_time.strftime("%I:%M%p") %></td>
-			</tr>
-				<% end %>
-			
-		</table>
+		<div class="col-lg-3">
+			<h4><%= full_name(current_user) %></h4>
 
-	<% end %>
+			<span class="list-group-header">Volunteer Stats</span>
+			<ul class="list-group">
+				<li class="list-group-item">Events Volunteered</li>
+				<li class="list-group-item">Volunteer Hours</li>
+			</ul>
+		</div>
 
-		<h3>Suggested Events</h3>
-		<table class="table table-bordered table-striped">
-			<tr>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Street</th>
-				<th>City</th>
-				<th>Date</th>
-				<th>Event Tasks</th>
-				<% if current_user.role == 'admin' %>
-					<th>Community</th>
-					<th>Intern</th>
-					<th>Staff</th>
-				<% else %>
-					<th><%= current_user.role.capitalize %>'s Signed Up</th>
-					<th>Actions</th>
-				<% end %>
-			</tr>
-				<% @suggested_tasks.each do |task| %>
-				<tr>
-					<td><%= link_to task.name, event_path(task) %></td>
-					<td><%= task.event_type.name %>
-					<td><%= task.event_type.street %>
-					<td><%= task.event_type.city %></td>
-					<td><%= task.date.strftime("%m/%d/%Y") %></td>
-					<td><%= task.sub_events.count %></td>
-						<% if current_user.role == 'admin' %>
-						<td><%= get_volunteer_counts(:community, task) %></td>
-						<td><%= get_volunteer_counts(:intern, task) %></td>
-						<td><%= get_volunteer_counts(:staff, task) %></td>
-						<% else %>
-						<td>
-							<%= get_volunteer_counts(current_user.role, task) %>
-						</td>
-						<td>
-							<%= button_to "View Event", event_path(task), method: 'get', class: 'btn btn-primary btn-xs' %>
-						</td>
+		<div class="col-lg-9">
+			<p>Are you going to use this application on site at the event?  If so, should we have a 'task' manage page where we can keep an event roster/time in or time out?</p>
+
+			<p>If we go with an 'end of day' event complete method, and not an individual 'task' complete method, we could just have a task roster with 'attended' or 'not attended' and just use the time from the sub event to gather the hours to add to the user.  It won't be exact but will give a approximation of how many hours were volunteered by the user</p>
+
+			<% if current_user.sub_events.exists? %>
+
+				<h3>My Tasks</h3>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Event Name</th>
+						<th>Task Name</th>
+						<th>Task Type</th>
+						<th>Task Date</th>
+						<th>Task Time</th>
+					</tr>
+					
+						<% current_user.sub_events.each do |task| %>
+						<tr>
+							<td><%= task.event.name %></td>
+							<td><%= link_to task.name, event_sub_event_path(task.event,task)%></td>
+							<td><%= task.event.event_type.name %></td>
+							<td><%= task.event.date.strftime("%m/%d/%Y") %></td>
+							<td><%= task.start_time.strftime("%I:%M%p") %> to <%= task.end_time.strftime("%I:%M%p") %></td>
+						</tr>
 						<% end %>
-				</tr>
-				<% end %>
-		</table>
+					
+				</table>
 
+			<% end %>
+
+				<h3>Suggested Events</h3>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Street</th>
+						<th>City</th>
+						<th>Date</th>
+						<th>Event Tasks</th>
+						<% if current_user.role == 'admin' %>
+							<th>Community</th>
+							<th>Intern</th>
+							<th>Staff</th>
+						<% else %>
+							<th><%= current_user.role.capitalize %>'s Signed Up</th>
+							<th>Actions</th>
+						<% end %>
+					</tr>
+						<% @suggested_tasks.each do |task| %>
+						<tr>
+							<td><%= link_to task.name, event_path(task) %></td>
+							<td><%= task.event_type.name %></td>
+							<td><%= task.event_type.street %></td>
+							<td><%= task.event_type.city %></td>
+							<td><%= task.date.strftime("%m/%d/%Y") %></td>
+							<td><%= task.sub_events.count %></td>
+								<% if current_user.role == 'admin' %>
+								<td><%= get_volunteer_counts(:community, task) %></td>
+								<td><%= get_volunteer_counts(:intern, task) %></td>
+								<td><%= get_volunteer_counts(:staff, task) %></td>
+								<% else %>
+								<td>
+									<%= get_volunteer_counts(current_user.role, task) %>
+								</td>
+								<td>
+									<%= button_to "View Event", event_path(task), method: 'get', class: 'btn btn-primary btn-xs' %>
+								</td>
+								<% end %>
+						</tr>
+						<% end %>
+				</table>
+		</div>
+	</div>
 <% end %>

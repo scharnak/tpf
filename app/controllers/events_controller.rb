@@ -5,8 +5,6 @@ class EventsController < ApplicationController
 
   before_filter :set_start_day
 
-
-
   load_and_authorize_resource
 
   def check

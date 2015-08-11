@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get '/events/:id/complete_event', to: 'events#complete_event', as: :complete_event
 
+  get '/sub_events/:id/roster', to: 'sub_events#roster', as: :roster
+
   get '/users/approve_users'
 
   match 'admin/users/:id/approve', :to => 'users#approve', :as => 'admin_user_approve', :via => :post
@@ -24,7 +26,13 @@ Rails.application.routes.draw do
 
   resources :event_types
 
-  root 'users#dashboard'
+  authenticated do
+    root :to => 'users#dashboard', as: :authenticated
+  end
+
+  root :to => 'home#index'
+
+  #root 'users#dashboard'
 
   #devise_for :users
 
