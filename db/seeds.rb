@@ -11,6 +11,9 @@ Event.delete_all
 Restaurant.delete_all
 Preference.delete_all
 PreferenceType.delete_all
+SubEventType.delete_all
+
+SubEventType.create(name: "Education Group", description: "We provide food and nutritian information to at risk youth.  We start off by educated the children, then demonstrate healthy eating and cooking techniques.")
 
 event_type_1 = EventType.create(name: 'Brookside Park')
 event_type_2  = EventType.create(name: 'Lunch')

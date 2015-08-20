@@ -5,7 +5,6 @@ class SubEvent < ActiveRecord::Base
 	has_many :users, through: :user_sub_events
 
 
-
   def volunteer_count(role)
     self.users.where(role: role.to_s).count
   end

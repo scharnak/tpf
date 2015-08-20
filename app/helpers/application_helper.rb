@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+	def get_unread_notifications(user)
+		@notifications = UserNotification.where(user_id: user.id, read: false)
+	end
+
 	def unapproved
 		@unapproved = User.where(approved: 'false')
 	end

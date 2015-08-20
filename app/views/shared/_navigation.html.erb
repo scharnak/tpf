@@ -19,20 +19,26 @@
           <!-- Signed in menu -->
           <% if user_signed_in? %>
             <li>
+              <%= link_to user_notifications_path(current_user), :class=>'navbar-link' do %>
+                <i class="glyphicon glyphicon-bell"></i> Notifications
+                   
+                  <span class="badge"><%= get_unread_notifications(current_user).count %></span>
+                    
+              <% end %>
+            </li>
+            <li>
               <%= link_to root_path, :class => 'navbar-link' do %>
                 <i class="glyphicon glyphicon-dashboard"></i> Dashboard
               <% end %>
             </li>
             <% if current_user && has_role?(:admin) %>
               <li>
-
                 <%= link_to users_approve_users_path, :class=>'navbar-link' do %>
                   <i class="glyphicon glyphicon-user"></i> Approve Users 
                   <% if unapproved.count > 0 %>
                     <span class="badge"><%= unapproved.count %></span>
                   <% end %>
                 <% end %>
-
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -43,7 +49,7 @@
                   <li><%= link_to "Manage Event Types", event_types_path %></li>
                   <li><%= link_to "Manage Preferences", preferences_path %></li>
                   <li><%= link_to "Manage Preference Types", preference_types_path %></li>
-                  <li><%= link_to "Manage Sub Event Types", sub_event_types_path %></li>
+                  <li><%= link_to "Manage Task Types", sub_event_types_path %></li>
                 </ul>
               </li>
 
@@ -56,7 +62,7 @@
                   <li><%= link_to "Create Event Types", new_event_type_path %></li>
                   <li><%= link_to "Create Preferences", new_preference_path %></li>
                   <li><%= link_to "Create Preference Types", new_preference_type_path %></li>
-                  <li><%= link_to "Create Sub Event Types", new_sub_event_type_path %></li>
+                  <li><%= link_to "Create Task Types", new_sub_event_type_path %></li>
                 </ul>
               </li>
             <% end %>
@@ -88,6 +94,7 @@
                 </li>
               <% end %>
             <% end %>
+
           <% end %>
 
         </ul>

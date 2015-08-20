@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   match 'admin/users/:id/approve', :to => 'users#approve', :as => 'admin_user_approve', :via => :post
 
+  p#ost '/users/:id/notification/:id', :to => 'notifications#read_notification', :as => 'read_notification'
+
   #need to route user ID and sub event ID to sign up in the sub_events controller
 
   resources :event_types
@@ -40,6 +42,8 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :volunteer_notes
+    resources :notifications
+    post '/notifications/:id/read_notification', :to => 'notifications#read_notification', :as => 'read_notification'
   end
 
   scope "/admin" do

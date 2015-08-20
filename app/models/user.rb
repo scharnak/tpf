@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   has_many :restaurants, through: :user_restaurants
   has_many :user_preferences
   has_many :preferences, through: :user_preferences
+  has_many :user_notifications
+  has_many :notifications, through: :user_notifications
 
   before_create :set_defaults
 

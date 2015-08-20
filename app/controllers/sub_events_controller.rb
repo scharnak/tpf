@@ -1,5 +1,6 @@
 class SubEventsController < ApplicationController
   before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up]
+  after_action :notify, only: [:sign_up, :task_remove]
 
   load_and_authorize_resource
   # GET /sub_events
@@ -8,14 +9,32 @@ class SubEventsController < ApplicationController
     @sub_events = SubEvent.all
   end
 
+  def notify
+    if action_name == 'sign_up'
+      notification_type = 'Task Registered'
+      body = current_user.fname + ' has registered for ' +  @sub_event.name
+    elsif action_name == 'task_remove'
+      notification_type = 'Task Unregistered'
+      body = current_user.fname + ' has unregistered from ' +  @sub_event.name
+    end
+
+    notification = Notification.create(notification_type: notification_type, body: body)
+
+    User.where(role: 'admin').each do |u|
+      #notification.users << u
+      UserNotification.create(user_id: u.id, notification_id: notification.id, read: false)
+    end
+
+  end
+
   def task_remove
-    hours = ((@sub_event.start_time-Time.now)/1.hour).round
-    if hours <= 24
-      response = {alert: "This task begins in #{hours} hours.  You must give at least 24 hours notice to remove yourself from a task!"}
-    else
+    #hours = ((@sub_event.start_time-Time.now)/1.hour).round
+    #if hours <= 24
+      #response = {alert: "This task begins in #{hours} hours.  You must give at least 24 hours notice to remove yourself from a task!"}
+    #else
       @sub_event.users.delete(current_user)
       response = {notice: "You have been removed from this task."}
-    end 
+    #end 
     redirect_to event_path(@sub_event.event), response
   end
 

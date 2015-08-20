@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810055844) do
+ActiveRecord::Schema.define(version: 20150820193220) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20150810055844) do
     t.datetime "date"
     t.string   "day",           limit: 255
     t.boolean  "completed",     limit: 1
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.text     "body",              limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "notification_type", limit: 255
   end
 
   create_table "preference_types", force: :cascade do |t|
@@ -58,6 +65,20 @@ ActiveRecord::Schema.define(version: 20150810055844) do
     t.datetime "updated_at",                            null: false
   end
 
+  create_table "sub_event_description_joins", force: :cascade do |t|
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "sub_event_description_id", limit: 4
+    t.integer  "sub_event_type_id",        limit: 4
+  end
+
+  create_table "sub_event_descriptions", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "sub_event_types", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
@@ -76,6 +97,14 @@ ActiveRecord::Schema.define(version: 20150810055844) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "sub_event_type_id", limit: 4
+  end
+
+  create_table "user_notifications", force: :cascade do |t|
+    t.integer  "user_id",         limit: 4
+    t.integer  "notification_id", limit: 4
+    t.boolean  "read",            limit: 1
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "user_preferences", force: :cascade do |t|

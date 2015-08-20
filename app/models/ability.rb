@@ -25,6 +25,9 @@ class Ability
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
         cannot [:create, :update, :destroy, :manage], SubEventType
+        can [:index], Notification
+        cannot [:create,:update,:destroy], Notification
+        cannot [:create, :update, :destroy, :manage], SubEventDescription
     end
 
     if user.role == 'guest'
@@ -37,6 +40,7 @@ class Ability
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
         cannot [:create,:update,:destroy,:manage], Restaurant
+        cannot [:create,:update,:destroy,:manage], Notification
     end
 
 #use this to hide and show things based on the users role
