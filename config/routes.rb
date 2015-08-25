@@ -43,11 +43,13 @@ Rails.application.routes.draw do
   post '/sub_events/:id/add_user_to_task', to: 'sub_events#add_user_to_task', as: :add_user_to_task
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-
+  
+  post '/user_notifications/:id/read_notification', :to => 'user_notification#read_notification', :as => 'read_notification'
+  
   resources :users do
     resources :volunteer_notes
     resources :notifications
-    post '/notifications/:id/read_notification', :to => 'notifications#read_notification', :as => 'read_notification'
+    
   end
 
   scope "/admin" do

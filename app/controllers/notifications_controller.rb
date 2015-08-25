@@ -26,7 +26,8 @@ class NotificationsController < ApplicationController
     #n.update_attribute(:read, 1)
     #@notification.update_attribute(:read,1)
     #UserNotification.where(notification_id: params[:id], user_id: current_user).update_attribute(:read, 1)
-
+    #current_user.notifications.where(:notification_id => @notification.id).update_attribute(:read, 1)
+    UserNotification.where(id: 6).first.update_attribute(:read, 1)
     redirect_to user_notifications_path(current_user),notice: 'Notification was successfully read.'
   end
 
