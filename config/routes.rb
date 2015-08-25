@@ -38,6 +38,10 @@ Rails.application.routes.draw do
 
   #devise_for :users
 
+  post '/sub_events/:id/remove_user_from_task', to: 'sub_events#remove_user_from_task', as: :remove_user_from_task
+
+  post '/sub_events/:id/add_user_to_task', to: 'sub_events#add_user_to_task', as: :add_user_to_task
+
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   resources :users do

@@ -3,7 +3,7 @@
 		<%= date.strftime("%d") %>
 		<ul class="list-group calendar-list">
 		<% events.each do |e| %>
-			<li class="list-group-item calendar-list-item">
+			<li class="list-group-item calendar-list-item masterTooltip">
 				<%= button_to event_path(e), method: 'get', class: 'btn btn-default btn-xs form-control' do %>
 					<%= e.event_type.name %>
 				<% end %>

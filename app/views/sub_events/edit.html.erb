@@ -1,4 +1,9 @@
-<h1>Editing Sub Event</h1>
+<h1>
+	Editing Sub Event
+	<% if can? :roster, @sub_event %>
+		| <%= link_to 'Roster',roster_path(@sub_event) %>
+	<% end %>
+</h1>  
 
 <%= render 'form' %>
 

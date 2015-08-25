@@ -20,14 +20,13 @@ class Ability
         cannot [:read,:create,:update,:destroy,:manage], VolunteerNote
         cannot [:create,:update,:destroy,:manage], Event
         can [:read], Event
-        cannot [:create,:update,:destroy,:manage], SubEvent
+        cannot [:create,:update,:destroy,:manage, :roster, :add_user_to_task, :remove_user_from_task], SubEvent
         can [:read, :sign_up, :task_remove], SubEvent
         cannot [:create,:update,:destroy,:manage], Preference
         cannot [:create,:update,:destroy,:manage], PreferenceType
         cannot [:create, :update, :destroy, :manage], SubEventType
         can [:index], Notification
         cannot [:create,:update,:destroy], Notification
-        cannot [:create, :update, :destroy, :manage], SubEventDescription
     end
 
     if user.role == 'guest'

@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     end 
   end
 
+  def full_name
+   "#{fname} #{lname}"
+  end
+
   private
 
   def set_defaults

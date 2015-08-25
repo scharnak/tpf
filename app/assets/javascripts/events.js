@@ -4,7 +4,8 @@ $(function(){
    autoclose: true,
    todayHighlight: true
 })
-  $(".list_view_btn").click(function(){
+
+$(".list_view_btn").click(function(){
     if($(".event_listing").css("display") == "none" ){
         $(".calendar").hide();
         $(".calendar-header").hide();

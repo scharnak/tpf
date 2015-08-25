@@ -1,12 +1,17 @@
 class SubEventsController < ApplicationController
-  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up]
+  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task]
   after_action :notify, only: [:sign_up, :task_remove]
+  #before_action :check, only: [:add_user_to_task]
 
   load_and_authorize_resource
   # GET /sub_events
   # GET /sub_events.json
   def index
     @sub_events = SubEvent.all
+  end
+
+  def check
+    raise("Check")
   end
 
   def notify
@@ -38,6 +43,29 @@ class SubEventsController < ApplicationController
     redirect_to event_path(@sub_event.event), response
   end
 
+  def roster
+    @roster = @sub_event.users
+  end
+
+  def add_user_to_task
+    @user = User.find(params[:user_id])
+      if !@sub_event.users.include?(@user)
+        @sub_event.users << @user
+        @sub_event.save
+        response = {notice: "User added to task."}
+      else
+        response =  {alert: "User already belongs to task!"}
+      end
+      redirect_to roster_path(@sub_event), response
+  end
+
+  def remove_user_from_task
+    @sub_event.users.delete(params[:user_id])
+    response = {notice: "You have been removed from this task."}
+    #end 
+    redirect_to roster_path(@sub_event), response
+  end
+
   def sign_up
     if @sub_event.volunteer_count(current_user.role) < @sub_event.try(current_user.role + '_num')
 
@@ -67,7 +95,7 @@ class SubEventsController < ApplicationController
 
   # GET /sub_events/1/edit
   def edit
-
+    @event = Event.find(params[:event_id])
   end
 
   # POST /sub_events
@@ -112,7 +140,7 @@ class SubEventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sub_event
-      @event = Event.find(params[:event_id])
+      #@event = Event.find(params[:event_id])
       @sub_event = SubEvent.find(params[:id])
     end
 
