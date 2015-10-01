@@ -1,5 +1,5 @@
 class SubEventsController < ApplicationController
-  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task]
+  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task, :calculate_hours]
   after_action :notify, only: [:sign_up, :task_remove]
   #before_action :check, only: [:add_user_to_task]
 
@@ -58,6 +58,18 @@ class SubEventsController < ApplicationController
       end
       redirect_to roster_path(@sub_event), response
   end
+
+  def calculate_hours 
+    @user = User.find(params[:user_id])
+    @hours = (@sub_event.end_time - @sub_event.start_time)/3600
+    @user.hours = @user.hours + @hours
+    if @user.save
+      response = {notice: "#{@user.fname + ' ' + @user.lname} has had #{@hours} hours added to their account."}
+    else
+      response = {notice: "There was a problem saving."}
+    end
+    redirect_to roster_path(@sub_event), response
+  end 
 
   def remove_user_from_task
     @sub_event.users.delete(params[:user_id])

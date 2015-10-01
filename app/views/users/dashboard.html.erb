@@ -8,30 +8,12 @@
 			<span class="list-group-header">Volunteer Stats</span>
 			<ul class="list-group">
 				<li class="list-group-item">Events Volunteered</li>
-				<li class="list-group-item">Volunteer Hours</li>
+				<li class="list-group-item">Volunteer Hours - <%= current_user.hours %></li>
 			</ul>
 		</div>
 
 		<div class="col-lg-9">
-			<p>Fix the 'read' method in the notifications controller<p>
-			
-			<p>Are you going to use this application on site at the event?  If so, should we have a 'task' manage page where we can keep an event roster/time in or time out?</p>
-
-			<p>If we go with an 'end of day' event complete method, and not an individual 'task' complete method, we could just have a task roster with 'attended' or 'not attended' and just use the time from the sub event to gather the hours to add to the user.  It won't be exact but will give a approximation of how many hours were volunteered by the user</p>
-
-			<p>Fix the abilities for Notifications.  Can index own notifications but not others.</p>
-
-			<p>Fix the time limit before an event starts when you can't delete your enrollment.</p>
-
-			<p>Need to do an email upon account approval, and set up disapproval and email for disapproval</p>
-
-			<p>Need to set up reading of notifications</p>
-
-			<p>Need to set up event backlog</p>
-
-			<p>Need to hide events that are before the current date</p>
-
-			<p>Fix approve users... it requires a page load?</p>
+		
 
 			<% if current_user.sub_events.exists? %>
 

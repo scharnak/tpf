@@ -2,7 +2,7 @@ class UserNotificationController < ApplicationController
 	before_action :set_user_notification, only: [:read_notification]
 
 	def read_notification
-		UserNotification.find(@user_notification).update_attribute(:read, 1)
+		UserNotification.find(@user_notification).destroy
     	redirect_to user_notifications_path(current_user),notice: 'Notification was successfully read.'
 	end
 

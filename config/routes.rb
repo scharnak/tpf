@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get '/sub_events/:id/roster', to: 'sub_events#roster', as: :roster
 
+  post '/sub_events/:id/calculate_hours', to: 'sub_events#calculate_hours', as: :calculate_hours
+
   get '/users/approve_users'
 
   match 'admin/users/:id/approve', :to => 'users#approve', :as => 'admin_user_approve', :via => :post

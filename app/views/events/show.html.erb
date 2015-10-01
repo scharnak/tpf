@@ -18,7 +18,7 @@
 	</ul>
 <% end %>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-7">
 		<div class="page-header remove-margin-top no-border">
 	  		<h1><%= @event.event_type.name %> 
 	  			<% if !@event.name.blank? %>
@@ -29,7 +29,7 @@
 	  		<h5><b><i><%= @event.event_type.street %> <%= @event.event_type.city %>, <%= @event.event_type.city %> <%= @event.event_type.zip_code %></i></b></h5>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-5">
 		<div class="page-header remove-margin-top no-border">
 			<h1 class="text-right"><small><%= @event.date.strftime("%A %B %d, %Y") %></small></h1>
 		</div>

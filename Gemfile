@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-datepicker-rails'
 gem 'will_paginate'

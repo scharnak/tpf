@@ -1,7 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   #before_action :check, only:[:create, :update]
   after_action :send_email, only:[:create]
-
+  #sending email, when there is an error, it should only send the email after the record is created.
+  #maybe the send email should be in the user controller?
   def new
     build_resource({})
     self.resource.user_restaurants.build
@@ -29,10 +30,10 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:fname, :lname, :email, :street, :city, :state, :zip_code, :password, :password_confirmation, :approved, :restaurant_ids => [], :preference_ids => [])
+    params.require(:user).permit(:fname, :lname, :email, :street, :city, :state, :zip_code, :password, :password_confirmation, :phonenumber, :approved, :restaurant_ids => [], :preference_ids => [])
   end
 
   def account_update_params
-    params.require(:user).permit(:fname, :lname, :email, :street, :city, :state, :zip_code, :password, :password_confirmation, :current_password, :role, :restaurant_ids => [], :preference_ids => [])
+    params.require(:user).permit(:fname, :lname, :email, :street, :city, :state, :zip_code, :password, :password_confirmation, :phonenumber, :current_password, :role, :restaurant_ids => [], :preference_ids => [])
   end
 end

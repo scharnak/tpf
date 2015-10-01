@@ -20,9 +20,10 @@
           <% if user_signed_in? %>
             <li>
               <%= link_to user_notifications_path(current_user), :class=>'navbar-link' do %>
-                <i class="glyphicon glyphicon-bell"></i> Notifications
-                   
-                  <span class="badge"><%= get_unread_notifications(current_user).count %></span>
+                <i class="glyphicon glyphicon-bell"></i>
+                  <% if get_unread_notifications(current_user).count > 0 %>
+                    <span class="badge badge-notify"><%= get_unread_notifications(current_user).count %></span>
+                  <% end %>
                     
               <% end %>
             </li>

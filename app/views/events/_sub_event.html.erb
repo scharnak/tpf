@@ -22,11 +22,10 @@
       
             <% User::ROLES.each do |role| %>
               <% if current_user.role == 'admin' || current_user.role == role.to_s %>
-                <tr>
-                  <th><%= role.capitalize %> Volunteers</th>
-                  <td><%= volunteer_count(role,task)%></td>
-                </tr>
-                
+                  <tr>
+                    <th><%= role.capitalize %> Volunteers</th>
+                    <td><%= volunteer_count(role,task)%></td>
+                  </tr>
               <% end %>          
             <% end %>
             <% if !task.users.blank? %>

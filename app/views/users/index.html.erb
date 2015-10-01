@@ -13,6 +13,7 @@
       <th>Count</th>
       <th>Last Sign In</th>
       <th>Notes</th>
+      <th>Background Check</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -34,6 +35,13 @@
           <td>No Data</td>
         <% end %>
         <td><%= user.volunteer_notes.count %></td>
+        <td>
+          <% if user.background_check_date %>
+            <%= user.background_check_date %> 
+          <% else %>
+            No Data
+          <% end %>
+        </td>
         <td>
           <!-- Single button -->
           <div class="btn-group">

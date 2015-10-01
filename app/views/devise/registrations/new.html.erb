@@ -23,6 +23,12 @@
           </div>
 
           <div class="form-group">
+            <%= f.label :phonenumber, "Phone Number" %><br />
+            <%= f.text_field :phonenumber, :autofocus => true, :class => "form-control" %>
+            <small><i>*Must be in 555-555-5555 format</i></small>
+          </div>
+
+          <div class="form-group">
             <%= f.label :street, "Street Address" %><br />
             <%= f.text_field :street, :autofocus => true, :class => "form-control" %>
           </div>
