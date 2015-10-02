@@ -7,45 +7,23 @@ class EventsController < ApplicationController
 
   load_and_authorize_resource
 
-  def check
-    raise("Chcek")
-  end 
-
-  def email
-    
-  end
-
-  def complete_event
-      @event.update_attribute(:completed,1)
-      redirect_to events_path, :notice => "Event has been completed."
-  end
-
-  # GET /events
-  # GET /events.json
   def index
-    @events = Event.order("date DESC").where(completed: 'false')
+    @events = Event.order("date DESC").where(completed_at: nil)
   end
 
-  # GET /events/1
-  # GET /events/1.json
   def show
     @tasks = @event.sub_events.order("start_time ASC")
   end
 
-  # GET /events/new
   def new
     @event = Event.new
   end
 
-  # GET /events/1/edit
   def edit
   end
 
-  # POST /events
-  # POST /events.json
   def create
       @event = Event.new(event_params)
-      @event.completed = 'false'
 
       respond_to do |format|
         if @event.save
@@ -56,8 +34,6 @@ class EventsController < ApplicationController
       end
   end
 
-  # PATCH/PUT /events/1
-  # PATCH/PUT /events/1.json
   def update
     respond_to do |format|
       if @event.update(event_params)
@@ -68,8 +44,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # DELETE /events/1
-  # DELETE /events/1.json
   def destroy
     @event.destroy
     respond_to do |format|
@@ -86,7 +60,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:event_type_id, :name, :date, :completed)
+      params.require(:event).permit(:event_type_id, :name, :date)
     end
 
     def set_start_day

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001224652) do
+ActiveRecord::Schema.define(version: 20151002021701) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20151001224652) do
     t.datetime "updated_at",                null: false
     t.datetime "date"
     t.string   "day",           limit: 255
-    t.boolean  "completed",     limit: 1
+    t.datetime "completed_at"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20151001224652) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "sub_event_type_id", limit: 4
+    t.datetime "completed_at"
   end
 
   create_table "user_notifications", force: :cascade do |t|

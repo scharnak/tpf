@@ -8,6 +8,14 @@ class Event < ActiveRecord::Base
 
   validates :date, presence: true
 
+  def incomplete_tasks?
+    sub_events.incomplete.present?
+  end
+
+  def complete
+    self.update(:completed_at => Time.now)
+  end
+
   private
 
   before_save :set_day

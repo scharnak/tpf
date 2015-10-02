@@ -10,11 +10,6 @@
 				<%= link_to "Edit Event", edit_event_path(@event), method: "get" %>
 			<% end %>
 		</li>
-		<li role="presentaion">
-			<% if can? :complete_event, @event %>
-				<%= link_to "Complete Event", complete_event_path(@event), method: "get" %>
-			<% end %>
-		</li>
 	</ul>
 <% end %>
 <div class="row">

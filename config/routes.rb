@@ -14,8 +14,6 @@ Rails.application.routes.draw do
     get '/sub_events/:id/task_remove', to: 'sub_events#task_remove', as: :task_remove
   end
 
-  get '/events/:id/complete_event', to: 'events#complete_event', as: :complete_event
-
   get '/sub_events/:id/roster', to: 'sub_events#roster', as: :roster
 
   post '/sub_events/:id/calculate_hours', to: 'sub_events#calculate_hours', as: :calculate_hours
@@ -37,6 +35,7 @@ Rails.application.routes.draw do
 
   root :to => 'home#index'
 
+  get '/sub_events/:id/complete_task', :to => 'sub_events#complete_task', as: :complete_task
   #root 'users#dashboard'
 
   #devise_for :users

@@ -1,5 +1,5 @@
 class SubEventsController < ApplicationController
-  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task, :calculate_hours, :edit_attendance]
+  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task, :calculate_hours, :edit_attendance, :complete_task]
   after_action :notify, only: [:sign_up, :task_remove]
   #before_action :check, only: [:add_user_to_task]
 
@@ -26,6 +26,16 @@ class SubEventsController < ApplicationController
       UserNotification.create(user_id: u.id, notification_id: notification.id, read: false)
     end
 
+  end
+
+  def complete_task
+    if @sub_event.update(:completed_at => Time.now)
+      @sub_event.event.complete if !@sub_event.event.incomplete_tasks?
+      response = {notice: "Task has been completed."}
+    else
+      response = {alert: "Task could not be completed"}
+    end
+    redirect_to event_path(@sub_event.event), response
   end
 
   def task_remove

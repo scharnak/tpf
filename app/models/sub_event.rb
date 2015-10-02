@@ -4,6 +4,8 @@ class SubEvent < ActiveRecord::Base
 	has_many :user_sub_events
 	has_many :users, through: :user_sub_events
 
+  scope :incomplete, ->{where(completed_at: nil)}
+
   def volunteer_count(role)
     self.users.where(role: role).count
   end
