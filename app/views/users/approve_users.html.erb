@@ -5,33 +5,30 @@
 		<th>Name</th>
 		<th>Role</th>
 		<th>Email</th>
-		<th>Restaurants</th>	
+		<th>Restaurants</th>
 		<th>Actions</th>
 	</tr>
 	<% @users.each do |user| %>
-		<%= form_for user, :method => 'POST', :url => admin_user_approve_path(user) do |f| %> 
-	<tr>
-		<td><%= full_name(user) %></td>
-		<td>
-			<div class="form-group">
-      				<%= f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize},{:include_blank => "Please select",:selected => user.role}, {class: "form-control input-xs"}) %>
-    		</div>
-		</td>
-		<td><%= user.email %></td>
-		<td>
-			<% if !user.restaurants.empty? %> 
-				<% user.restaurants.each do |r| %>
-					<%= r.name %><br/>
-				<% end %>
-			<% else %>
-				None Selected
-			<% end %>
-		</td>
-		<td><%= button_to users_approve_users_path, :class => "btn btn-primary btn-xs", data: { disable_with: "Approving..." } do %>
-				Approve user
-			<% end %>
-		</td>
-	</tr>
+		<%= form_for user, :method => 'POST', :url => user_approve_path(user) do |f| %>
+			<tr>
+				<td><%= full_name(user) %></td>
+				<td>
+					<div class="form-group">
+						<%= f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize},{:include_blank => "Please select",:selected => user.role}, {class: "form-control input-xs"}) %>
+		    	</div>
+				</td>
+				<td><%= user.email %></td>
+				<td>
+					<% if !user.restaurants.empty? %>
+						<% user.restaurants.each do |r| %>
+							<%= r.name %><br/>
+						<% end %>
+					<% else %>
+						None Selected
+					<% end %>
+				</td>
+				<td><%= f.submit "Approve user",  :class => "btn btn-primary btn-xs" %></td>
+			</tr>
 		<% end %>
 	<% end %>
 </table>

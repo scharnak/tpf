@@ -21,11 +21,7 @@ Rails.application.routes.draw do
 
   get '/users/approve_users'
 
-  match 'admin/users/:id/approve', :to => 'users#approve', :as => 'admin_user_approve', :via => :post
-
-  p#ost '/users/:id/notification/:id', :to => 'notifications#read_notification', :as => 'read_notification'
-
-  #need to route user ID and sub event ID to sign up in the sub_events controller
+  post 'users/:id/approve', :to => 'users#approve', :as => 'user_approve'
 
   resources :event_types
 
@@ -45,13 +41,13 @@ Rails.application.routes.draw do
   post '/sub_events/:id/add_user_to_task', to: 'sub_events#add_user_to_task', as: :add_user_to_task
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-  
+
   post '/user_notifications/:id/read_notification', :to => 'user_notification#read_notification', :as => 'read_notification'
-  
+  get '/user_notifications/:id/delete_notification', :to => 'user_notification#delete_notification', :as => 'delete_user_notification'
+
   resources :users do
     resources :volunteer_notes
     resources :notifications
-    
   end
 
   scope "/admin" do

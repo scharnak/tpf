@@ -6,29 +6,9 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    #@notifications = Notification.all
     @user = User.find(params[:user_id])
-    @notifications = UserNotification.where(user_id: @user, read: false)
-  end
-
-  def read_notification
-    #gu = g.groups_users.where('user_id = ?',u.id) 
-    #gu.update_attributes (:status => 'inactive')
-
-    #u = @notification.users.where(notification_id: @notification.id, user_id: current_user.id)
-
-    #u = @notification.users.find_by_id(params[:id])
-
-    #user = User.find(params[:id])
-
-    #n = UserNotification.where(notification_id:@notification, user_id: user.id).first
-
-    #n.update_attribute(:read, 1)
-    #@notification.update_attribute(:read,1)
-    #UserNotification.where(notification_id: params[:id], user_id: current_user).update_attribute(:read, 1)
-    #current_user.notifications.where(:notification_id => @notification.id).update_attribute(:read, 1)
-    UserNotification.where(id: 6).first.update_attribute(:read, 1)
-    redirect_to user_notifications_path(current_user),notice: 'Notification was successfully read.'
+    UserNotification.unread(@user.id).update_all(read: true)
+    @notifications = UserNotification.where(user_id: @user)
   end
 
   # GET /notifications/1
