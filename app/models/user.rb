@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ROLES = %i[community staff intern admin]
+  ROLES = ['community','staff','intern','admin']
 
   has_many :volunteer_notes
   has_many :user_sub_events
@@ -22,20 +22,31 @@ class User < ActiveRecord::Base
       :with => /\(?[0-9]{3}\)?-[0-9]{3}-[0-9]{4}/,
       :message => "- Phone numbers must be in xxx-xxx-xxxx format."
 
-  def active_for_authentication? 
-    super && approved? 
-  end 
+  scope :endusers, -> {where.not(role: 'admin')}
 
-  def inactive_message 
-    if !approved? 
-      :not_approved 
-    else 
-      super # Use whatever other message 
-    end 
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
   end
 
   def full_name
    "#{fname} #{lname}"
+  end
+
+  def is_enduser?
+    role != 'admin' ? true : false
+  end
+
+  def increment_hours(hours)
+    self.hours += hours
+    self.save!
   end
 
   private

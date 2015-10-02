@@ -1,5 +1,5 @@
 class SubEventsController < ApplicationController
-  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task, :calculate_hours]
+  before_action :set_sub_event, only: [:show, :edit, :update, :destroy, :sign_up, :remove_user_from_task, :calculate_hours, :edit_attendance]
   after_action :notify, only: [:sign_up, :task_remove]
   #before_action :check, only: [:add_user_to_task]
 
@@ -8,10 +8,6 @@ class SubEventsController < ApplicationController
   # GET /sub_events.json
   def index
     @sub_events = SubEvent.all
-  end
-
-  def check
-    raise("Check")
   end
 
   def notify
@@ -39,7 +35,7 @@ class SubEventsController < ApplicationController
     #else
       @sub_event.users.delete(current_user)
       response = {notice: "You have been removed from this task."}
-    #end 
+    #end
     redirect_to event_path(@sub_event.event), response
   end
 
@@ -49,32 +45,50 @@ class SubEventsController < ApplicationController
 
   def add_user_to_task
     @user = User.find(params[:user_id])
-      if !@sub_event.users.include?(@user)
+      if !@sub_event.users.include?(@user) && @user.is_enduser? && !@sub_event.is_full?(@user.role)
         @sub_event.users << @user
         @sub_event.save
         response = {notice: "User added to task."}
       else
-        response =  {alert: "User already belongs to task!"}
+        msg = @sub_event.is_full?(@user.role) ? "Task is full for #{@user.role} users!" : "User already belongs to task!"
+        response =  {alert: msg }
       end
       redirect_to roster_path(@sub_event), response
   end
 
-  def calculate_hours 
+  def edit_attendance
+    sub = UserSubEvent.find_by(sub_event_id: params[:id], user_id: params[:attendee_id])
+    sub.attended = params[:attended]
+
+    factor =  params[:attended] == 'true' ? 1 : -1
+    diff = (@sub_event.end_time - @sub_event.start_time)/3600
+
+    if sub.save
+      user = User.find(params[:attendee_id])
+      user.increment_hours(diff*factor)
+      message = {notice: "#{user.full_name}'s hours has been updated to #{user.hours} hours"}
+    else
+      message = {alert: "Attendance could not be marked"}
+    end
+    redirect_to roster_path(@sub_event), message
+  end
+
+  def calculate_hours
     @user = User.find(params[:user_id])
     @hours = (@sub_event.end_time - @sub_event.start_time)/3600
-    @user.hours = @user.hours + @hours
+    @user.hours += @hours
     if @user.save
       response = {notice: "#{@user.fname + ' ' + @user.lname} has had #{@hours} hours added to their account."}
     else
       response = {notice: "There was a problem saving."}
     end
     redirect_to roster_path(@sub_event), response
-  end 
+  end
 
   def remove_user_from_task
     @sub_event.users.delete(params[:user_id])
     response = {notice: "You have been removed from this task."}
-    #end 
+    #end
     redirect_to roster_path(@sub_event), response
   end
 

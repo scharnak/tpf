@@ -4,9 +4,12 @@ class SubEvent < ActiveRecord::Base
 	has_many :user_sub_events
 	has_many :users, through: :user_sub_events
 
-
   def volunteer_count(role)
-    self.users.where(role: role.to_s).count
+    self.users.where(role: role).count
+  end
+
+  def is_full?(role)
+    volunteer_count(role) >= self.send("#{role}_num".to_sym)
   end
 
 end

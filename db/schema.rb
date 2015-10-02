@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901135153) do
+ActiveRecord::Schema.define(version: 20151001224652) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20150901135153) do
   end
 
   create_table "notifications", force: :cascade do |t|
+    t.string   "notification_type", limit: 255
     t.text     "body",              limit: 65535
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.string   "notification_type", limit: 255
   end
 
   create_table "preference_types", force: :cascade do |t|
@@ -63,20 +63,6 @@ ActiveRecord::Schema.define(version: 20150901135153) do
     t.string   "phone",      limit: 255
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-  end
-
-  create_table "sub_event_description_joins", force: :cascade do |t|
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "sub_event_description_id", limit: 4
-    t.integer  "sub_event_type_id",        limit: 4
-  end
-
-  create_table "sub_event_descriptions", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
   end
 
   create_table "sub_event_types", force: :cascade do |t|
@@ -124,8 +110,9 @@ ActiveRecord::Schema.define(version: 20150901135153) do
   create_table "user_sub_events", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
     t.integer  "sub_event_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "attended",     limit: 1, default: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -160,10 +147,12 @@ ActiveRecord::Schema.define(version: 20150901135153) do
 
   create_table "volunteer_notes", force: :cascade do |t|
     t.integer  "user_id",            limit: 4
-    t.integer  "created_by_user_id", limit: 4
     t.string   "description",        limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "created_by_user_id", limit: 4
   end
+
+  add_index "volunteer_notes", ["created_by_user_id"], name: "index_volunteer_notes_on_created_by_user_id", using: :btree
 
 end

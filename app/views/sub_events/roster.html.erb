@@ -21,7 +21,7 @@
 
 		<%= form_tag add_user_to_task_path, method: :post do %>
 			<div class="form-group">
-		  		<%= select_tag("user_id", options_from_collection_for_select(User.all, "id", :full_name), class: 'form-control') %>
+		  		<%= select_tag("user_id", options_from_collection_for_select(User.endusers, "id", :full_name), class: 'form-control') %>
 		  	</div>
 
 
@@ -34,7 +34,7 @@
                     <th><%= role.capitalize %> Volunteers</th>
                     <td><%= volunteer_count(role,@task)%></td>
                   </tr>
-              <% end %>          
+              <% end %>
             <% end %>
 
 	</div>
@@ -55,9 +55,19 @@
 					<td><%= user.full_name %></td>
 					<td><%= user.role %></td>
 					<td>
-						<%= form_tag calculate_hours_path(user_id: user.id), method: :post do %>
-							<%= button_tag 'Yes', class: 'btn btn-primary btn-xs btn-hours' %>
-						<% end %>						
+						<% if attended_sub_event?(user) %>
+							<%= form_tag edit_attendance_path(@sub_event.id) do %>
+								<%= hidden_field_tag "attendee_id", user.id  %>
+								<%= hidden_field_tag "attended", false  %>
+								<%= submit_tag 'No', class: 'btn btn-primary btn-xs btn-hours' %>
+							<% end %>
+						<% else %>
+							<%= form_tag edit_attendance_path(@sub_event.id) do %>
+									<%= hidden_field_tag "attendee_id", user.id  %>
+									<%= hidden_field_tag "attended", true  %>
+									<%= submit_tag 'Yes', class: 'btn btn-primary btn-xs btn-hours' %>
+							<% end %>
+						<% end %>
 					</td>
 					<td>
 						<%= form_tag remove_user_from_task_path(user_id: user.id), method: :post do %>
