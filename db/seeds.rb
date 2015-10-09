@@ -12,37 +12,49 @@ Restaurant.delete_all
 Preference.delete_all
 PreferenceType.delete_all
 SubEventType.delete_all
+User.delete_all
+
+### CREATE EVENT STUFF
+
+event_type1 = EventType.create(name: 'Brookside Park', street: Faker::Address.street_address, state: "IN", city: "Indianapolis", zip_code: "46202")
+event_type2= EventType.create(name: 'Lunch',street: Faker::Address.street_address, state: "IN", city: "Indianapolis", zip_code: "46202")
+event_type3 = EventType.create(name: 'Another EventType', street: Faker::Address.street_address, state: "IN", city: "Indianapolis", zip_code: "46202")
+event_types = [event_type1, event_type2,event_type3]
+
+(1..5).each do
+  e_type = event_types.sample
+  Event.create!(name: "#{Faker::Company.name}", date: Faker::Date.forward(15), event_type: e_type)
+end
 
 SubEventType.create(name: "Education Group", description: "We provide food and nutritian information to at risk youth.  We start off by educated the children, then demonstrate healthy eating and cooking techniques.")
 
-event_type_1 = EventType.create(name: 'Brookside Park')
-event_type_2  = EventType.create(name: 'Lunch')
 
-event_1 = Event.create(name: "Event 1", event_type_id: event_type_1.id, date: Date.today)
-event_2 = Event.create(name: "Event 2", event_type_id: event_type_2.id, date: Date.today)
+
 
 restaurant_array = ["Downtown Patachou", "Broad Ripple Napolese", "Broad Ripple Patachou", "Keystone Napolese", "Public Greenss"]
 
 restaurant_array.each {|r| Restaurant.create(name: r)}
 
+
+
+#### CREATE PREFERENCE STUFF
 preference_type_array = ["Weekly Availability", "Preferred Frequency", "Volunteer Interest", "Groups"]
 
-preference_type_array.each {
-	|pt| PreferenceType.create(name: pt)
-}
+total_data = [["Monday","Tuesday","Wednesday","Thursday","Friday"], ["Weekly", "Twice a Month", "Monthly", "Twice a Semester"],
+ ["Food Service", "Education/Planned Small Groups", "Food Preperation", "Administrative Assistance", "Grant Writing", "Research"],
+  ["Yes, Mondays", "Yes Tuesdays", "No"]]
 
-preference_weekly_array = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+preference_type_array.each_with_index do |pt, index|
+  pt = PreferenceType.create(name: pt)
+  total_data[index].each do |m|
+    pt.preferences << Preference.create(name: m)
+  end
+end
 
-preference_weekly_array.each {|a| Preference.create(preference_type_id: 1, name: a)}
+### CREATE USERS
 
-preference_frequency_array = ["Weekly", "Twice a Month", "Monthly", "Twice a Semester"]
+User::ROLES.each do |u|
+  user = User.create!(fname:"#{u}", lname: "#{u}", email: "#{u}@#{u}.com", phonenumber: "317-222-2222", password: "#{u}1234", password_confirmation: "#{u}1234")
+  user.update!(role: u, approved: true)
+end
 
-preference_frequency_array.each {|a| Preference.create(preference_type_id: 2, name: a)}
-
-preference_interest_array = ["Food Service", "Education/Planned Small Groups", "Food Preperation", "Administrative Assistance", "Grant Writing", "Research"]
-
-preference_interest_array.each {|a| Preference.create(preference_type_id: 3, name: a)}
-
-preference_group_array = ["Yes, Mondays", "Yes Tuesdays", "No"]
-
-preference_group_array.each {|a| Preference.create(preference_type_id: 4, name: a)}

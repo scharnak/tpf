@@ -5,6 +5,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'will_paginate'
 gem 'cancancan', '~> 1.10'
 gem "simple_calendar", "~> 1.1.0"
+gem "faker"
 
 gem 'bootswatch-rails'
 
