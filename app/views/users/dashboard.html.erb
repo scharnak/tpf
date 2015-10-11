@@ -29,8 +29,8 @@
 					
 						<% current_user.sub_events.each do |task| %>
 						<tr>
-							<td><%= task.event.name %></td>
-							<td><%= link_to task.name, event_sub_event_path(task.event,task)%></td>
+							<td><%= link_to task.event.name, event_path(task.event) %></td>
+							<td><%= task.name %></td>
 							<td><%= task.event.event_type.name %></td>
 							<td><%= task.event.date.strftime("%m/%d/%Y") %></td>
 							<td><%= task.start_time.strftime("%I:%M%p") %> to <%= task.end_time.strftime("%I:%M%p") %></td>

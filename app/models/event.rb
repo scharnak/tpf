@@ -8,12 +8,24 @@ class Event < ActiveRecord::Base
 
   validates :date, presence: true
 
+  scope :incomplete, ->{where(completed_at: nil)}
+  scope :complete, ->{where.not(completed_at: nil)}
+  scope :with_sub_events, ->{joins(:sub_events).uniq}
+
   def incomplete_tasks?
     sub_events.incomplete.present?
   end
 
   def complete
     self.update(:completed_at => Time.now)
+  end
+
+  def self.openings_with_role(role)
+    return [] if role.to_s == 'admin'
+    Event.with_sub_events.incomplete.inject([]) do |accum, event|
+      event.sub_events.each{|sub| accum << event and break if !sub.is_full?(role.to_s)}
+      accum
+    end
   end
 
   private

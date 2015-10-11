@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :complete_event]
-  after_action :email, only: [:create]
   #before_action :check, only: [:create]
 
   before_filter :set_start_day
@@ -8,7 +7,8 @@ class EventsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @events = Event.order("date DESC").where(completed_at: nil)
+    return @events = Event.all if current_user.role.to_s  == "admin"
+    @events = Event.openings_with_role(current_user.role.to_sym)
   end
 
   def show

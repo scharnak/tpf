@@ -29,21 +29,21 @@
               <% end %>
             <% end %>
             <% if !task.users.blank? %>
+              <% if ['admin', 'staff'].include?(current_user.role)  %>
                   <tr>
                     <th>Users Volunteering</th>
                     <td>
                         <ul class="list-group">
                           <% task.users.each do |user| %>
-                            <% if user.role == current_user.role || current_user.role == 'admin' %>
-                              <li class="list-group-item">
-                                  <%= link_to "#{full_name(user)}", user_path(user) %>
-                              </li>
-                            <% end %>
+                            <li class="list-group-item">
+                                <%= link_to "#{full_name(user)}", user_path(user) %>
+                            </li>
                           <% end %>
                         </ul>
                     </td>
                   </tr>
                 <% end %>
+              <% end %>
               <% if current_user.role != 'admin' %>
               <tr>
                 <td colspan='2'>

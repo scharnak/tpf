@@ -5,7 +5,7 @@
 		<% events.each do |e| %>
 			<li class="list-group-item calendar-list-item masterTooltip">
 				<%= button_to event_path(e), method: 'get', class: 'btn btn-default btn-xs form-control' do %>
-					<%= e.name %>
+					<%= e.event_type.name %>
 				<% end %>
 			</li>
 		<% end %>

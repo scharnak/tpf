@@ -8,34 +8,44 @@
 
 EventType.delete_all
 Event.delete_all
-Restaurant.delete_all
 Preference.delete_all
 PreferenceType.delete_all
+Restaurant.delete_all
+SubEvent.delete_all
 SubEventType.delete_all
 User.delete_all
 
-### CREATE EVENT STUFF
-
+### CREATE EVENT TYPES
 event_type1 = EventType.create(name: 'Brookside Park', street: Faker::Address.street_address, state: "IN", city: "Indianapolis", zip_code: "46202")
 event_type2= EventType.create(name: 'Lunch',street: Faker::Address.street_address, state: "IN", city: "Indianapolis", zip_code: "46202")
 event_type3 = EventType.create(name: 'Another EventType', street: Faker::Address.street_address, state: "IN", city: "Indianapolis", zip_code: "46202")
 event_types = [event_type1, event_type2,event_type3]
 
+
+### CREATE EVENTS
 (1..5).each do
   e_type = event_types.sample
   Event.create!(name: "#{Faker::Company.name}", date: Faker::Date.forward(15), event_type: e_type)
 end
 
-SubEventType.create(name: "Education Group", description: "We provide food and nutritian information to at risk youth.  We start off by educated the children, then demonstrate healthy eating and cooking techniques.")
+### CREATE SUBEVENT TYPES
+SubEventType.create(name: "Education Group", description: Faker::Lorem.paragraph)
+SubEventType.create(name: "Lunch Group", description: Faker::Lorem.paragraph)
+SubEventType.create(name: "Another Group", description: Faker::Lorem.paragraph)
+
+### CREATE SUBEVENTS
+Event.all.each do |event|
+  rand(1..3).times do
+    type = SubEventType.all.pluck(:id)
+    start_time = Faker::Time.between(event.date.beginning_of_day, event.date.end_of_day, :afternoon)
+    event.sub_events << SubEvent.create(name: Faker::Company.name, start_time: start_time, end_time: (start_time + 3.hours) , intern_num:rand(0..4), staff_num: rand(0..4), community_num: rand(0..4), sub_event_type_id: type[rand(0..2)])
+  end
+end
 
 
-
-
+#### CREATE RESTAURANTS
 restaurant_array = ["Downtown Patachou", "Broad Ripple Napolese", "Broad Ripple Patachou", "Keystone Napolese", "Public Greenss"]
-
 restaurant_array.each {|r| Restaurant.create(name: r)}
-
-
 
 #### CREATE PREFERENCE STUFF
 preference_type_array = ["Weekly Availability", "Preferred Frequency", "Volunteer Interest", "Groups"]
