@@ -26,11 +26,6 @@
                   <% end %>
               <% end %>
             </li>
-            <li>
-              <%= link_to root_path, :class => 'navbar-link' do %>
-                <i class="glyphicon glyphicon-dashboard"></i> Dashboard
-              <% end %>
-            </li>
             <% if current_user && has_role?(:admin) %>
               <li>
                 <%= link_to users_approve_users_path, :class=>'navbar-link' do %>

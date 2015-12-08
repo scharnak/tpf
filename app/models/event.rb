@@ -16,8 +16,9 @@ class Event < ActiveRecord::Base
     sub_events.incomplete.present?
   end
 
-  def complete
-    self.update(:completed_at => Time.now)
+  def completes
+    self.update(completed_at: Time.now)
+    self.save
   end
 
   def self.openings_with_role(role)
