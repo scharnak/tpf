@@ -24,7 +24,6 @@
                   <% if get_unread_notifications(current_user).count > 0 %>
                     <span class="badge badge-notify"><%= get_unread_notifications(current_user).count %></span>
                   <% end %>
-                    
               <% end %>
             </li>
             <li>
@@ -102,8 +101,9 @@
 
         <% if user_signed_in? && current_user.fname %>
           <p class="navbar-text navbar-right">Welcome, <%= link_to user_path(current_user) do %>
-              <%= current_user.fname + " " + current_user.lname %> | <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+              <%= current_user.fname + " " + current_user.lname %> 
             <% end %>
+            | <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
           </p>
         <% else %>
           <p class="navbar-text navbar-right">
