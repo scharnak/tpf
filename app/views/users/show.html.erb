@@ -14,7 +14,7 @@
   </div>
   <div class="col-md-5">
     <div class="page-header remove-margin-top no-border">
-      <h1><%= @user.role.capitalize %></h1>
+      <h2>Role: <%= @user.role.capitalize %></h2>
     </div>
   </div>
 </div>
@@ -74,6 +74,30 @@
 </div>
 
 <% if can? :read, @user.volunteer_notes %>
+    <div class="panel panel-default">
+        <div class="panel-heading">Preferences for <%= @user.full_name %></div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Preferences</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% PreferenceType.all.each do |pt| %>
+              <tr>
+                <td><%= pt.name %></td>
+                <td>
+                  <% @user.preferences.where(preference_type_id: pt.id).each do |p| %>
+                    <%= p.name %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+
 
 <div class="panel panel-default">
         <div class="panel-heading">Admin Notes for <%= @user.full_name %></div>
