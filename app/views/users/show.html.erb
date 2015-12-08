@@ -1,10 +1,15 @@
-<% if has_role?(:admin) %>
-  <ul class="nav nav-pills">
-      <li role="presentation">
-        <%= link_to "Add Admin Note", new_user_volunteer_note_path(@user) %>
+<ul class="nav nav-pills">
+  <% if has_role?(:admin) %>
+    <li role="presentation">
+      <%= link_to "Add Admin Note", new_user_volunteer_note_path(@user) %>
     </li>
-  </ul>
-<% end %>
+  <% end %>
+  <% if @user == current_user %>
+    <li role="presentation">
+    <%= link_to "Edit Account", edit_user_registration_path %>
+    </li>
+  <% end %>
+</ul>
 
 <div class="row">
   <div class="col-md-7">
@@ -62,11 +67,11 @@
           <table class="table table-bordered table-event-tasks">
             <tr>
               <th>Tasks Completed</th>
-              <td>Data</td>
+              <td><%= @user.sub_events.count %></td>
             </tr>
             <tr>
               <th>Volunteer hours</th>
-              <td>Data</td>
+              <td><%= @user.hours.to_i %></td>
             </tr>
           </table>
       </div>
@@ -86,10 +91,10 @@
           <tbody>
             <% PreferenceType.all.each do |pt| %>
               <tr>
-                <td><%= pt.name %></td>
+                <td class="col col-sm-3"><%= pt.name %></td>
                 <td>
                   <% @user.preferences.where(preference_type_id: pt.id).each do |p| %>
-                    <%= p.name %>
+                      <div style="border: solid 1px #AAA; display:inline; padding:3px; border-radius: 5px;"><%= p.name %></div>
                   <% end %>
                 </td>
               </tr>
