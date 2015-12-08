@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
 
   has_calendar :attribute => :date
 
-  validates :date, presence: true
+  validates :date, :name, presence: true
 
   scope :incomplete, ->{where(completed_at: nil)}
   scope :complete, ->{where.not(completed_at: nil)}
