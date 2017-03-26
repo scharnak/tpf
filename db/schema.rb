@@ -148,12 +148,10 @@ ActiveRecord::Schema.define(version: 20151002021701) do
 
   create_table "volunteer_notes", force: :cascade do |t|
     t.integer  "user_id",            limit: 4
+    t.integer  "created_by_user_id", limit: 4
     t.string   "description",        limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "created_by_user_id", limit: 4
   end
-
-  add_index "volunteer_notes", ["created_by_user_id"], name: "index_volunteer_notes_on_created_by_user_id", using: :btree
 
 end
